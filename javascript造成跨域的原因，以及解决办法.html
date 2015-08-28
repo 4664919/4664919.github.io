@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>造成跨域的原因，以及解决办法 | simons blog</title>
+  <meta name="author" content="simon sun">
+  
+  <meta name="description" content="今天同事过来问我一个问题：当js请求跨域的时候，服务器端能否接收到数据，如果能接收到数据是否是半链接？
+我忽然发现我不知道改怎么回答这个问题，因为之前确实没有关注这个问题。
+仔细想了一下并且查了相关资料做了测试结果为：
+造成跨域的原因是js安全策略做的限制，http、浏览器是没有限制的。也就是说服务">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="造成跨域的原因，以及解决办法"/>
+  <meta property="og:site_name" content="simons blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="simons blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">simons blog</a></h1>
+  <h2 class="subtitle"></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-08T14:32:26.000Z"><a href="/javascript造成跨域的原因，以及解决办法.html">2015-05-08</a></time>
+      
+      
+  
+    <h1 class="title">造成跨域的原因，以及解决办法</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>今天同事过来问我一个问题：当js请求跨域的时候，服务器端能否接收到数据，如果能接收到数据是否是半链接？</p>
+<p>我忽然发现我不知道改怎么回答这个问题，因为之前确实没有关注这个问题。</p>
+<p>仔细想了一下并且查了相关资料做了测试结果为：</p>
+<p>造成跨域的原因是js安全策略做的限制，http、浏览器是没有限制的。也就是说服务端是会有返回并且客户端也会接收数据只是js不认。</p>
+<p>so重点是js，所以我们只要能绕过js安全策略即可。</p>
+<p>基于这个，目前解决跨域问题的方法有如下：</p>
+<p>设置domain</p>
+<p>jsonp</p>
+<p>form、iframe</p>
+<p>cors</p>
+<p>domain 这个使用最简单，使用频率也是最高的，同时限制也是很大的。它只能解决本域的跨域</p>
+<p>jsonp 原理很简单，就是创建一个url地址去请求，然后返回的时候返回字符串内容，然后根据约定把返回的内容转换为js即可。jsonp使用频率很高，不过它的限制是不能post数据，所以不安全。</p>
+<p>form、iframe 是很早之前使用的方式，在ajax之前就是用这个方法解决跨域的。介个很老了，现在很少用到它了</p>
+<p>cors   这个是新解决办法，只需要在header里配置一下就可以解决跨域问题。很方便也很简单。不过由于比较新很多老浏览器不支持，下图是各个浏览器的支持情况。</p>
+<p>&nbsp;</p>
+<p><img src="/wp-content/uploads/2015/05/06082033-9233ced009a644f9af909baca57a72b7.png" alt=""></p>
+<p><img src="/wp-content/uploads/2015/05/06082103-f46e697e71884240b7200f8713697fbc.png" alt=""></p>
+<p>网上介绍跨域的代码有很多，所以这里只写原理。代码就不重复造轮子了。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/ajax/">ajax</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/前端/">前端</a>, <a href="/tags/跨域/">跨域</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  <section id="comments">
+       <!-- 多说评论框 start -->
+     <div id="ds-thread" class="ds-thread" data-thread-key="javascript造成跨域的原因，以及解决办法.html" data-title="造成跨域的原因，以及解决办法" data-url="http://blog.simonsun.net/javascript造成跨域的原因，以及解决办法.html"></div>
+       <!-- 多说评论框 end -->
+       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+       <script type="text/javascript">
+       var duoshuoQuery = {short_name:"simonsun"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- 多说公共JS代码 end -->
+       </section>
+       
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:blog.simonsun.net">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/hello-world.html">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/postName.html">postName</a>
+      </li>
+    
+      <li>
+        <a href="/vim搜索插件ag-vim.html">vim搜索插件ag.vim</a>
+      </li>
+    
+      <li>
+        <a href="/golang-http-get、post实例.html">golang http get、post实例</a>
+      </li>
+    
+      <li>
+        <a href="/beanstalk介绍以及使用说明.html">beanstalk介绍以及使用说明</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/VIM插件/">VIM插件</a><small>1</small></li>
+  
+    <li><a href="/tags/ag-vim/">ag.vim</a><small>1</small></li>
+  
+    <li><a href="/tags/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/tags/beanstalk/">beanstalk</a><small>1</small></li>
+  
+    <li><a href="/tags/daemon/">daemon</a><small>1</small></li>
+  
+    <li><a href="/tags/go/">go</a><small>1</small></li>
+  
+    <li><a href="/tags/golang/">golang</a><small>3</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>2</small></li>
+  
+    <li><a href="/tags/php/">php</a><small>2</small></li>
+  
+    <li><a href="/tags/queue/">queue</a><small>1</small></li>
+  
+    <li><a href="/tags/shell/">shell</a><small>1</small></li>
+  
+    <li><a href="/tags/vim/">vim</a><small>1</small></li>
+  
+    <li><a href="/tags/二分查找/">二分查找</a><small>1</small></li>
+  
+    <li><a href="/tags/前端/">前端</a><small>1</small></li>
+  
+    <li><a href="/tags/守护进程/">守护进程</a><small>1</small></li>
+  
+    <li><a href="/tags/性能/">性能</a><small>1</small></li>
+  
+    <li><a href="/tags/服务/">服务</a><small>1</small></li>
+  
+    <li><a href="/tags/未分类/">未分类</a><small>1</small></li>
+  
+    <li><a href="/tags/架构/">架构</a><small>1</small></li>
+  
+    <li><a href="/tags/测试/">测试</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>2</small></li>
+  
+    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>2</small></li>
+  
+    <li><a href="/tags/跨域/">跨域</a><small>1</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 simon sun
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'simonsun';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

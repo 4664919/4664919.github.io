@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>beanstalk介绍以及使用说明 | simons blog</title>
+  <meta name="author" content="simon sun">
+  
+  <meta name="description" content="使用beanstalk也有一年了，今天准备对项目的beanstalk进行封装，顺带纪录一个日志说明下功能描述：     beanstalk是一个异步的队列服务，目标是把复杂、耗时的任务放到后端去执行。提升前端响应时间。确切的说这里说的前端、后端 就是beanstalk的producer-consum">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="beanstalk介绍以及使用说明"/>
+  <meta property="og:site_name" content="simons blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="simons blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">simons blog</a></h1>
+  <h2 class="subtitle"></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-05-08T15:29:40.000Z"><a href="/beanstalk介绍以及使用说明.html">2015-05-08</a></time>
+      
+      
+  
+    <h1 class="title">beanstalk介绍以及使用说明</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <div>使用beanstalk也有一年了，今天准备对项目的beanstalk进行封装，顺带纪录一个日志说明下</div><br><div></div><br><div>功能描述：</div><br><div>     beanstalk是一个异步的队列服务，目标是把复杂、耗时的任务放到后端去执行。提升前端响应时间。确切的说这里说的前端、后端 就是beanstalk的producer-consumer，一个负责丢任务，一个负责完成任务</div><br><div>使用场景：</div><br><div>     需要进行异步操作的任务都可以放到beanstalk中</div><br><div>业务实例：</div><br><div>     比如发邮件、短信等。可以直接丢入队列，然后服务端去依次发送</div><br><div>     比如电商中的业务、行为分析等操作，</div><br><div></div><br><div>具体使用方式：</div><br><div></div><br><div>一个任务的典型生命流程很简单：</div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">put （丢任务，生产者）  reserve（取任务，消费者）        delete（删除）<br>-&gt; [READY]beanstalk的状态-&gt; [RESERVED]beanstalk的状态—&gt; 生命周期完成</pre><br><div></div><br><div></div><br><div>producer中创建任务，put后producer生命周期就结束了</div><br><div>consumer负责干活。一般取出任务后删除即可。取出任务之前是ready状态。取出任务后就reserve状态。删除后任务就清掉了。</div><br><div></div><br><div>完整的生命周期:</div><br><div></div><br><div><a href="/wp-content/uploads/2015/05/0DE6ACB1-70AB-412B-A3EB-AC8520B51D9A.png"><img src="http://dev.blog.simonsun.net/wp-content/uploads/2015/05/0DE6ACB1-70AB-412B-A3EB-AC8520B51D9A.png" alt="0DE6ACB1-70AB-412B-A3EB-AC8520B51D9A"></a></div><br><div>Beanstalkd中完整的任务的生命周期。一个job有READY, RESERVED, DELAYED, BURIED四种状态。当producer直接put一个job时，job就处于READY状态，等待consumer来处理，如果选择延迟 put，job就先到DELAYED状态，等待时间过后才迁移到READY状态。consumer获取了当前READY的job后，该job的状态就迁移 到RESERVED，这样其他的consumer就不能再操作该job。当consumer完成该job后，可以选择delete, release或者bury操作;delete之后，job从系统消亡，之后不能再获取;release操作可以重新把该job状态迁移回READY(也 可以延迟该状态迁移操作)，使其他的consumer可以继续获取和执行该job;有意思的是bury操作，可以把该job休眠，等到需要的时候，再将休 眠的job kick回READY状态，也可以delete BURIED状态的job。正是有这些有趣的操作和状态，才可以基于此做出很多意思的应用，比如要实现一个循环队列，就可以将RESERVED状态的 job休眠掉，等没有READY状态的job时再将BURIED状态的job一次性kick回READY状态。</div><br><div></div><br><div>任务的状态：</div><br><div>ready     等待状态，任务在等待consumer执行</div><br><div>reserved     任务准备状态，当任务从tube中取出来（包括准备取出来）时，这个任务就是reserved状态，其他consumer将取不到此任务</div><br><div>delayed      延时状态，任务在指定时间之后才会变为ready状态</div><br><div>buried       等待kick，通常是任务失败为此状态</div><br><div></div><br><div></div><br><div></div><br><div>参数说明：</div><br><div></div><br><div>pri &#8211; priority(优先级) － 支持0到2**32的优先级，值越小，优先级越高，默认优先级为1024。</div><br><div>ttr &#8211; time to run(任务执行时间) － 允许consumer执行这个任务的时间</div><br><div>delay － 定时执行的时间，秒为单位</div><br><div></div><br><div></div><br><div>命令列表：</div><br><div><br><div>生产者使用命令</div><br><div>－－－－－－－－－－－－－－－－－－</div><br><div></div><br><div>put</div><br><div>写入一个任务</div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">put &lt;pri&gt; &lt;delay&gt; &lt;ttr&gt; &lt;bytes&gt;\r\n<br>&lt;data&gt;\r\n</pre><br><div></div><br><div></div><br><div>use</div><br><div>切换队列</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">use &lt;tube&gt;\r\n</pre><br></div><br><div></div><br><div>消费者使用命令</div><br><div>－－－－－－－－－－－－－－－－</div><br><div></div><br><div>reserve</div><br><div>取一个任务</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">reserve\r\n</pre><br></div><br><div></div><br><div>取一个任务，带超时时间的</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">reserve-with-timeout &lt;seconds&gt;\r\n</pre><br></div><br><div></div><br><div></div><br><div></div><br><div>delete</div><br><div>删除一个任务</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">delete &lt;id&gt;\r\n</pre><br></div><br><div></div><br><div>release</div><br><div>把任务重新置为ready状态</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">release &lt;id&gt; &lt;pri&gt; &lt;delay&gt;\r\n</pre><br></div><br><div></div><br><div></div><br><div>bury</div><br><div>不常用，将任务置为buried状态。</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">bury &lt;id&gt; &lt;pri&gt;\r\n</pre><br></div><br><div></div><br><div>touch</div><br><div>告诉beanstalk这个任务还在继续执行，防止取出任务超时后，beanstalk认为失败</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">touch &lt;id&gt;\r\n</pre><br></div><br><div></div><br><div>watch</div><br><div>不常用，似乎是使消费者同时从多个任务中取数据</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">watch &lt;tube&gt;\r\n</pre><br></div><br><div></div><br><div>ignore</div><br><div>不常用，与watch匹配一起使用，是从watch list中删除一个任务</div><br><div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">ignore &lt;tube&gt;\r\n</pre><br></div><br><div></div><br><div></div><br><div></div><br><div>－－Other Commands－－</div><br><pre class="EnlighterJSRAW" data-enlighter-language="null">peek<br>kick<br>kick-job<br>stats-job<br>stats-tube<br>stats<br>list-tubes<br>list-tube-used<br>list-tubes-watched<br>quit</pre><br><div></div><br><div></div><br></div><br><div></div><br><div>以下是我对队列封装类的函数，其实就是执行beanstalk的命令</div><br><div><br><div>   public static function addWorker()</div><br><div>   public static function delete()</div><br><div>   public static function doWork()</div><br><div>   public static function get()</div><br><div>   public static function put()</div><br><div>   public static function release()</div><br><div>   public static function touch()</div><br></div><br><div></div><br><div> 使用起来也非常简单，一般一条语句就可以，很方便</div><br><div></div><br><div></div><br><div></div><br><div></div><br><div></div><br><div></div><br><div></div><br><div></div><br><div></div>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/beanstalk/">beanstalk</a>, <a href="/tags/linux/">linux</a>, <a href="/tags/php/">php</a>, <a href="/tags/queue/">queue</a>, <a href="/tags/服务/">服务</a>, <a href="/tags/架构/">架构</a>, <a href="/tags/队列/">队列</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  <section id="comments">
+       <!-- 多说评论框 start -->
+     <div id="ds-thread" class="ds-thread" data-thread-key="beanstalk介绍以及使用说明.html" data-title="beanstalk介绍以及使用说明" data-url="http://blog.simonsun.net/beanstalk介绍以及使用说明.html"></div>
+       <!-- 多说评论框 end -->
+       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+       <script type="text/javascript">
+       var duoshuoQuery = {short_name:"simonsun"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- 多说公共JS代码 end -->
+       </section>
+       
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:blog.simonsun.net">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/hello-world.html">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/postName.html">postName</a>
+      </li>
+    
+      <li>
+        <a href="/vim搜索插件ag-vim.html">vim搜索插件ag.vim</a>
+      </li>
+    
+      <li>
+        <a href="/golang-http-get、post实例.html">golang http get、post实例</a>
+      </li>
+    
+      <li>
+        <a href="/beanstalk介绍以及使用说明.html">beanstalk介绍以及使用说明</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/VIM插件/">VIM插件</a><small>1</small></li>
+  
+    <li><a href="/tags/ag-vim/">ag.vim</a><small>1</small></li>
+  
+    <li><a href="/tags/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/tags/beanstalk/">beanstalk</a><small>1</small></li>
+  
+    <li><a href="/tags/daemon/">daemon</a><small>1</small></li>
+  
+    <li><a href="/tags/go/">go</a><small>1</small></li>
+  
+    <li><a href="/tags/golang/">golang</a><small>3</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>2</small></li>
+  
+    <li><a href="/tags/php/">php</a><small>2</small></li>
+  
+    <li><a href="/tags/queue/">queue</a><small>1</small></li>
+  
+    <li><a href="/tags/shell/">shell</a><small>1</small></li>
+  
+    <li><a href="/tags/vim/">vim</a><small>1</small></li>
+  
+    <li><a href="/tags/二分查找/">二分查找</a><small>1</small></li>
+  
+    <li><a href="/tags/前端/">前端</a><small>1</small></li>
+  
+    <li><a href="/tags/守护进程/">守护进程</a><small>1</small></li>
+  
+    <li><a href="/tags/性能/">性能</a><small>1</small></li>
+  
+    <li><a href="/tags/服务/">服务</a><small>1</small></li>
+  
+    <li><a href="/tags/未分类/">未分类</a><small>1</small></li>
+  
+    <li><a href="/tags/架构/">架构</a><small>1</small></li>
+  
+    <li><a href="/tags/测试/">测试</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>2</small></li>
+  
+    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>2</small></li>
+  
+    <li><a href="/tags/跨域/">跨域</a><small>1</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 simon sun
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'simonsun';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>golang http get、post实例 | simons blog</title>
+  <meta name="author" content="simon sun">
+  
+  <meta name="description" content="生活中我们有很多代码格式是固定的，轮子造好后应该去创造其他东西，而不是重复造轮子。所以以下golang方式get、post做一个记录。以后可以直接copy使用
+1234567891011121314151617181920212223242526272829303132333435363738394">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="golang http get、post实例"/>
+  <meta property="og:site_name" content="simons blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="simons blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">simons blog</a></h1>
+  <h2 class="subtitle"></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-06-08T10:00:12.000Z"><a href="/golang-http-get、post实例.html">2015-06-08</a></time>
+      
+      
+  
+    <h1 class="title">golang http get、post实例</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>生活中我们有很多代码格式是固定的，轮子造好后应该去创造其他东西，而不是重复造轮子。所以以下golang方式get、post做一个记录。以后可以直接copy使用</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">     <span class="string">"fmt"</span></span><br><span class="line">     <span class="string">"io/ioutil"</span></span><br><span class="line">     <span class="string">"net/http"</span></span><br><span class="line">     <span class="string">"net/url"</span></span><br><span class="line">     <span class="string">"os"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">     <span class="keyword">var</span> sender = <span class="string">"simonsun"</span></span><br><span class="line">     v := url.Values&#123;&#125;</span><br><span class="line">     v.Set(<span class="string">"type"</span>, <span class="string">"tip"</span>)</span><br><span class="line">     v.Add(<span class="string">"sender"</span>, sender)</span><br><span class="line">     v.Add(<span class="string">"recvusers"</span>, sender)</span><br><span class="line">     v.Add(<span class="string">"message"</span>, <span class="string">"骚年，你好content"</span>)</span><br><span class="line">     v.Add(<span class="string">"title"</span>, <span class="string">"骚年，你好title"</span>)</span><br><span class="line">     v.Add(<span class="string">"pwd"</span>, <span class="string">"123456"</span>)</span><br><span class="line">     <span class="keyword">var</span> url_info = <span class="string">"http://rtx.oa.com:8013/service/index.php?"</span> + v.Encode()</span><br><span class="line">     fmt.Println(url_info)</span><br><span class="line">     <span class="comment">//get 方式</span></span><br><span class="line">     resp, err := http.Get(url_info)</span><br><span class="line">     <span class="comment">//post 方式</span></span><br><span class="line">     <span class="comment">//resp, err := http.PostForm("http://rtx.oa.com:8012/service/index.php", v)</span></span><br><span class="line">     <span class="keyword">if</span> err == <span class="constant">nil</span> &#123;</span><br><span class="line">          body, err := ioutil.ReadAll(resp.Body)</span><br><span class="line">          <span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">          <span class="keyword">if</span> err == <span class="constant">nil</span> &#123;</span><br><span class="line">               fmt.Println(<span class="typename">string</span>(body))</span><br><span class="line">               fmt.Println(err)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">               fmt.Println(<span class="string">"parse io read error"</span>, err)</span><br><span class="line">          &#125;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          fmt.Println(<span class="string">"http rtx error http error:"</span>, err)</span><br><span class="line">     &#125;</span><br><span class="line">     os.Exit(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/go/">go</a>, <a href="/tags/golang/">golang</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  <section id="comments">
+       <!-- 多说评论框 start -->
+     <div id="ds-thread" class="ds-thread" data-thread-key="golang-http-get、post实例.html" data-title="golang http get、post实例" data-url="http://blog.simonsun.net/golang-http-get、post实例.html"></div>
+       <!-- 多说评论框 end -->
+       <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+       <script type="text/javascript">
+       var duoshuoQuery = {short_name:"simonsun"};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- 多说公共JS代码 end -->
+       </section>
+       
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:blog.simonsun.net">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/hello-world.html">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/postName.html">postName</a>
+      </li>
+    
+      <li>
+        <a href="/vim搜索插件ag-vim.html">vim搜索插件ag.vim</a>
+      </li>
+    
+      <li>
+        <a href="/golang-http-get、post实例.html">golang http get、post实例</a>
+      </li>
+    
+      <li>
+        <a href="/beanstalk介绍以及使用说明.html">beanstalk介绍以及使用说明</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/VIM插件/">VIM插件</a><small>1</small></li>
+  
+    <li><a href="/tags/ag-vim/">ag.vim</a><small>1</small></li>
+  
+    <li><a href="/tags/ajax/">ajax</a><small>1</small></li>
+  
+    <li><a href="/tags/beanstalk/">beanstalk</a><small>1</small></li>
+  
+    <li><a href="/tags/daemon/">daemon</a><small>1</small></li>
+  
+    <li><a href="/tags/go/">go</a><small>1</small></li>
+  
+    <li><a href="/tags/golang/">golang</a><small>3</small></li>
+  
+    <li><a href="/tags/javascript/">javascript</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>2</small></li>
+  
+    <li><a href="/tags/php/">php</a><small>2</small></li>
+  
+    <li><a href="/tags/queue/">queue</a><small>1</small></li>
+  
+    <li><a href="/tags/shell/">shell</a><small>1</small></li>
+  
+    <li><a href="/tags/vim/">vim</a><small>1</small></li>
+  
+    <li><a href="/tags/二分查找/">二分查找</a><small>1</small></li>
+  
+    <li><a href="/tags/前端/">前端</a><small>1</small></li>
+  
+    <li><a href="/tags/守护进程/">守护进程</a><small>1</small></li>
+  
+    <li><a href="/tags/性能/">性能</a><small>1</small></li>
+  
+    <li><a href="/tags/服务/">服务</a><small>1</small></li>
+  
+    <li><a href="/tags/未分类/">未分类</a><small>1</small></li>
+  
+    <li><a href="/tags/架构/">架构</a><small>1</small></li>
+  
+    <li><a href="/tags/测试/">测试</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>2</small></li>
+  
+    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>2</small></li>
+  
+    <li><a href="/tags/跨域/">跨域</a><small>1</small></li>
+  
+    <li><a href="/tags/队列/">队列</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 simon sun
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'simonsun';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
