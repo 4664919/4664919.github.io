@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>首篇博客说明 以及为什么写博客 | simons blog</title>
+  <title>造成跨域的原因，以及解决办法 | simons blog</title>
   <meta name="author" content="simon sun">
   
-  <meta name="description" content="断断续续写了几年的博客，每个阶段的开始也是一个新博客的开启。期望不会再变动博客了，之前写的博客会酌情挪动到此博客下，一些质量不高的就抛弃了。
-关于为什么写博客，之前博客盛行一时到之后的衰落，我当年也是跟风写了一点。由于各种原因博客总是断掉，其中最重要的原因是当时不知道博客存在的价值。直到读《暗示间》">
+  <meta name="description" content="今天同事过来问我一个问题：当js请求跨域的时候，服务器端能否接收到数据，如果能接收到数据是否是半链接？
+我忽然发现我不知道改怎么回答这个问题，因为之前确实没有关注这个问题。
+仔细想了一下并且查了相关资料做了测试结果为：
+造成跨域的原因是js安全策略做的限制，http、浏览器是没有限制的。也就是说服务">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="首篇博客说明 以及为什么写博客"/>
+  <meta property="og:title" content="造成跨域的原因，以及解决办法"/>
   <meta property="og:site_name" content="simons blog"/>
 
   
@@ -67,21 +69,34 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-05-07T09:19:46.000Z"><a href="/首篇博客说明-以及为什么写博客.html">2015-05-07</a></time>
+        <time datetime="2015-05-08T14:32:26.000Z"><a href="/javascript-cross-origin-resource-sharing.html">2015-05-08</a></time>
       
       
   
-    <h1 class="title">首篇博客说明 以及为什么写博客</h1>
+    <h1 class="title">造成跨域的原因，以及解决办法</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>断断续续写了几年的博客，每个阶段的开始也是一个新博客的开启。期望不会再变动博客了，之前写的博客会酌情挪动到此博客下，一些质量不高的就抛弃了。</p>
-<p>关于为什么写博客，之前博客盛行一时到之后的衰落，我当年也是跟风写了一点。由于各种原因博客总是断掉，其中最重要的原因是当时不知道博客存在的价值。直到读《暗示间》、《把时间当作朋友》（不记得到底是哪一本了）时才知道博客的核心价值。这也是我重新写博客的原因和动力。</p>
-<p>那么博客的核心价值是什么呢？ 个人觉得主要是减少沟通成本。其他人想了解我们可以通过观看我们的博客从而了解我们，而我们博客只写一次可以让所有人来观看。</p>
-<p>其次我们自己也可以通过观看自己的博客了解曾经的我们的所知所想。</p>
-<p>最后，曾经用过wordpress，后来觉得不好用，放弃了。结果最后还是用它了。新版的wordpress很好用！～</p>
+        <p>今天同事过来问我一个问题：当js请求跨域的时候，服务器端能否接收到数据，如果能接收到数据是否是半链接？</p>
+<p>我忽然发现我不知道改怎么回答这个问题，因为之前确实没有关注这个问题。</p>
+<p>仔细想了一下并且查了相关资料做了测试结果为：</p>
+<p>造成跨域的原因是js安全策略做的限制，http、浏览器是没有限制的。也就是说服务端是会有返回并且客户端也会接收数据只是js不认。</p>
+<p>so重点是js，所以我们只要能绕过js安全策略即可。</p>
+<p>基于这个，目前解决跨域问题的方法有如下：</p>
+<p>设置domain</p>
+<p>jsonp</p>
+<p>form、iframe</p>
+<p>cors</p>
+<p>domain 这个使用最简单，使用频率也是最高的，同时限制也是很大的。它只能解决本域的跨域</p>
+<p>jsonp 原理很简单，就是创建一个url地址去请求，然后返回的时候返回字符串内容，然后根据约定把返回的内容转换为js即可。jsonp使用频率很高，不过它的限制是不能post数据，所以不安全。</p>
+<p>form、iframe 是很早之前使用的方式，在ajax之前就是用这个方法解决跨域的。介个很老了，现在很少用到它了</p>
+<p>cors   这个是新解决办法，只需要在header里配置一下就可以解决跨域问题。很方便也很简单。不过由于比较新很多老浏览器不支持，下图是各个浏览器的支持情况。</p>
+<p>&nbsp;</p>
+<p><img src="/wp-content/uploads/2015/05/06082033-9233ced009a644f9af909baca57a72b7.png" alt=""></p>
+<p><img src="/wp-content/uploads/2015/05/06082103-f46e697e71884240b7200f8713697fbc.png" alt=""></p>
+<p>网上介绍跨域的代码有很多，所以这里只写原理。代码就不重复造轮子了。</p>
 
       
     </div>
@@ -91,7 +106,7 @@
         
   
   <div class="tags">
-    <a href="/tags/未分类/">未分类</a>
+    <a href="/tags/ajax/">ajax</a>, <a href="/tags/javascript/">javascript</a>, <a href="/tags/前端/">前端</a>, <a href="/tags/跨域/">跨域</a>
   </div>
 
         
@@ -104,7 +119,7 @@
 
   <section id="comments">
        <!-- 多说评论框 start -->
-     <div id="ds-thread" class="ds-thread" data-thread-key="首篇博客说明-以及为什么写博客.html" data-title="首篇博客说明 以及为什么写博客" data-url="http://blog.simonsun.net/首篇博客说明-以及为什么写博客.html"></div>
+     <div id="ds-thread" class="ds-thread" data-thread-key="javascript-cross-origin-resource-sharing.html" data-title="造成跨域的原因，以及解决办法" data-url="http://blog.simonsun.net/javascript-cross-origin-resource-sharing.html"></div>
        <!-- 多说评论框 end -->
        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
        <script type="text/javascript">
@@ -146,15 +161,15 @@
       </li>
     
       <li>
-        <a href="/vim搜索插件ag-vim.html">vim搜索插件ag.vim</a>
+        <a href="/vim_vim_search_ag-vim.html">vim搜索插件ag.vim</a>
       </li>
     
       <li>
-        <a href="/golang-http-get、post实例.html">golang http get、post实例</a>
+        <a href="/golang_http_get_post.html">golang http get、post实例</a>
       </li>
     
       <li>
-        <a href="/beanstalk介绍以及使用说明.html">beanstalk介绍以及使用说明</a>
+        <a href="/architecture_how_to_use_beanstalk.html">beanstalk介绍以及使用说明</a>
       </li>
     
   </ul>

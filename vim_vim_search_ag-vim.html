@@ -3,19 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>八皇后问题在各语言下执行时间测试 | simons blog</title>
+  <title>vim搜索插件ag.vim | simons blog</title>
   <meta name="author" content="simon sun">
   
-  <meta name="description" content="前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），
-目前测试覆盖的代码有 C,GO,JAVA,PHP
-待写测试代码的有：PYTHON,RUBY,NODEJS,JS
-目前效率最高的是C语言，其次是GO，然后是JAVA，最慢的是PHP
-其中C语言在优化后可达到">
+  <meta name="description" content="之前使用vim搜索特别麻烦，vim自带的vimgrep速度慢，而且不好用。先安装 the_silver_searcherbrew install the_silver_searchervim下配置：Bundle &amp;#8216;https://github.com/rking/ag.vim&amp;#8216">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="八皇后问题在各语言下执行时间测试"/>
+  <meta property="og:title" content="vim搜索插件ag.vim"/>
   <meta property="og:site_name" content="simons blog"/>
 
   
@@ -70,40 +66,17 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-05-07T09:52:10.000Z"><a href="/八皇后问题在各语言下执行时间测试.html">2015-05-07</a></time>
+        <time datetime="2015-06-08T10:02:29.000Z"><a href="/vim_vim_search_ag-vim.html">2015-06-08</a></time>
       
       
   
-    <h1 class="title">八皇后问题在各语言下执行时间测试</h1>
+    <h1 class="title">vim搜索插件ag.vim</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），</p>
-<p>目前测试覆盖的代码有 C,GO,JAVA,PHP</p>
-<p>待写测试代码的有：PYTHON,RUBY,NODEJS,JS</p>
-<p>目前效率最高的是C语言，其次是GO，然后是JAVA，最慢的是PHP</p>
-<p>其中C语言在优化后可达到1毫秒，未优化2毫秒</p>
-<p>GO运行在2-3毫秒之间</p>
-<p>JAVA为4毫秒</p>
-<p>PHP达到80毫秒左右，开APC达到56毫秒，通过查看OPCODE各种优化达到40毫秒（这时候已经影响到可读性了）</p>
-<p>附效率截图：</p>
-<p>优化后的C</p>
-<p><img src="/wp-content/uploads/2015/05/43C2D95475FD89063F422CE2781EE8E7_B500_900_193_63.jpeg" alt=""></p>
-<p>未优化的C</p>
-<p><img src="/wp-content/uploads/2015/05/EB8ED5CA077B7346D2773AEE4A02A153_B500_900_208_62.jpeg" alt=""></p>
-<p>JAVA</p>
-<p><img src="/wp-content/uploads/2015/05/6717B942A8DFEF9B4B43FBD149EEAB83_B500_900_279_65.jpeg" alt=""></p>
-<p>开启APC后的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/5E8F0D435B879E1E62108CFB4B0F8DFC_B500_900_320_61.jpeg" alt=""></p>
-<p>未开启APC的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/D05B76E3515309E44374C0A288335E9E_B500_900_322_69.jpeg" alt=""></p>
-<p>&nbsp;</p>
-<p>golang:</p>
-<p>total results: 352</p>
-<p>total time: 2</p>
-
+        <div>之前使用vim搜索特别麻烦，vim自带的vimgrep速度慢，而且不好用。</div><br><div></div><br><div>先安装 the_silver_searcher</div><br><div>brew install the_silver_searcher</div><br><div></div><br><div>vim下配置：</div><br><div>Bundle &#8216;<a href="https://github.com/rking/ag.vim" target="_blank" rel="external">https://github.com/rking/ag.vim</a>&#8216;</div><br><div>let g:ackprg = &#8216;ag &#8211;nogroup &#8211;nocolor &#8211;column&#8217;</div><br><div></div><br><div></div><br><div>git地址传送门</div><br><div><a href="https://github.com/rking/ag.vim" target="_blank" rel="external">https://github.com/rking/ag.vim</a></div><br><div></div><br><div></div><br><div></div>
       
     </div>
     <footer>
@@ -112,7 +85,7 @@
         
   
   <div class="tags">
-    <a href="/tags/性能/">性能</a>, <a href="/tags/测试/">测试</a>, <a href="/tags/算法/">算法</a>, <a href="/tags/算法、数据结构/">算法、数据结构</a>
+    <a href="/tags/VIM插件/">VIM插件</a>, <a href="/tags/ag-vim/">ag.vim</a>, <a href="/tags/vim/">vim</a>
   </div>
 
         
@@ -125,7 +98,7 @@
 
   <section id="comments">
        <!-- 多说评论框 start -->
-     <div id="ds-thread" class="ds-thread" data-thread-key="八皇后问题在各语言下执行时间测试.html" data-title="八皇后问题在各语言下执行时间测试" data-url="http://blog.simonsun.net/八皇后问题在各语言下执行时间测试.html"></div>
+     <div id="ds-thread" class="ds-thread" data-thread-key="vim_vim_search_ag-vim.html" data-title="vim搜索插件ag.vim" data-url="http://blog.simonsun.net/vim_vim_search_ag-vim.html"></div>
        <!-- 多说评论框 end -->
        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
        <script type="text/javascript">
@@ -167,15 +140,15 @@
       </li>
     
       <li>
-        <a href="/vim搜索插件ag-vim.html">vim搜索插件ag.vim</a>
+        <a href="/vim_vim_search_ag-vim.html">vim搜索插件ag.vim</a>
       </li>
     
       <li>
-        <a href="/golang-http-get、post实例.html">golang http get、post实例</a>
+        <a href="/golang_http_get_post.html">golang http get、post实例</a>
       </li>
     
       <li>
-        <a href="/beanstalk介绍以及使用说明.html">beanstalk介绍以及使用说明</a>
+        <a href="/architecture_how_to_use_beanstalk.html">beanstalk介绍以及使用说明</a>
       </li>
     
   </ul>
