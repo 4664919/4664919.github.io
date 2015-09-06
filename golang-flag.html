@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>golang 守护进程 daemon 实现方式 | simons blog</title>
+  <title>golang使用flag中遇到的问题 | simons blog</title>
   <meta name="author" content="simon sun">
   
-  <meta name="description" content="技术点：
+  <meta name="description" content="关于flag在开发golang项目中，有用到flag。在使用中遇到一些问题：
 
-执行代码增加了一个开关，用来判断是否已经是daemon形式启动了
-使用linux内置守护进程运行命令
+多次解析flag，会覆盖之前的：
 
-具体逻辑：
-程序在刚启动的时候包中init函数优先执行，执行后验证是否存在守护进程开关，如果存在并且当前进程不是守护进程模式则使用守护进程方式启动应用并退出当前进程
-需要注意的：gol">
+出现的具体问题：
+在开发项目包中守护进程 daemon 实现方式 、关于golang性能调试 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.
+
+代码示">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="golang 守护进程 daemon 实现方式"/>
+  <meta property="og:title" content="golang使用flag中遇到的问题"/>
   <meta property="og:site_name" content="simons blog"/>
 
   
@@ -73,46 +73,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-05-07T09:51:12.000Z"><a href="/golang-daemon.html">2015-05-07</a></time>
+        <time datetime="2015-09-06T08:59:30.000Z"><a href="/golang-flag.html">2015-09-06</a></time>
       
       
   
-    <h1 class="title">golang 守护进程 daemon 实现方式</h1>
+    <h1 class="title">golang使用flag中遇到的问题</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>技术点：</p>
-<ul>
-<li>执行代码增加了一个开关，用来判断是否已经是daemon形式启动了</li>
-<li>使用linux内置守护进程运行命令</li>
-</ul>
-<p>具体逻辑：</p>
-<p>程序在刚启动的时候包中init函数优先执行，执行后验证是否存在守护进程开关，如果存在并且当前进程不是守护进程模式则使用守护进程方式启动应用并退出当前进程</p>
-<p>需要注意的：golang的flag包的逻辑是所有参数必须都是flag方式，否则就不解析。我在做的时候是有非flag方式的，所以只能自己动手丰衣足食了</p>
-<p>伪代码示例：</p>
-<p>包：</p>
-<p>func init(){</p>
-<p>//验证是否存在守护进程开关</p>
-<p>if daemon_args_exist(){</p>
-<p>//当前进程不是守护进程模式</p>
-<p>if ! is_daemon_progress() {</p>
-<p>//守护进程方式启动应用</p>
-<p>star_daemon()</p>
-<p>//并退出当前进程</p>
-<p>os.Exit(0)</p>
-<p>}</p>
-<p>}</p>
-<p>&nbsp;</p>
-<p>}</p>
-<p>应用入口main：</p>
-<p>import(</p>
-<p>//只要引入包即可，无需其他操作</p>
-<p>_ “xidibuy/daemon&#8221;</p>
-<p>)</p>
-<p>另外下面传送门的这个git是有bug的，当有参数不全部为flag的时候，就会失效。</p>
-<p>思路参考了： <a href="http://github.com/icattlecoder/godaemon" target="_blank" rel="external">github.com/icattlecoder/godaemon</a></p>
+        <h1 id="关于flag">关于flag</h1><p>在开发golang项目中，有用到flag。在使用中遇到一些问题：</p>
+<ol>
+<li>多次解析flag，会覆盖之前的：</li>
+</ol>
+<h2 id="出现的具体问题：">出现的具体问题：</h2><blockquote>
+<p>在开发项目包中<a href="/golang-daemon.html">守护进程 daemon 实现方式 </a>、<a href="/golang-pprof.html">关于golang性能调试</a> 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.</p>
+</blockquote>
+<p>代码示例：<br>包a:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> init() &#123;</span><br><span class="line">    <span class="keyword">if</span> daemon_args_exist() &#123;</span><br><span class="line">        flag.Parse()                                                                                                                           </span><br><span class="line">        ...</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>包b:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> parseProfFlags() &#123;</span><br><span class="line">    <span class="keyword">if</span> !flag.Parsed() &#123;                                                                                                                        </span><br><span class="line">        flag.Parse()</span><br><span class="line">    &#125;   </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="如何解决">如何解决</h3><p>虽然加了一些简单判断，其实是没有解决实际问题。根据golang的flag包，程序需要保证只执行一次parse，但是在daemon的程序中，初始化的时候有可能直接中断程序，故也需要一些开关来判断在什么时候执行parse。 其他包则是在主函数中程序初始化完毕后，加载flag.Parse()即可解决。</p>
+<p>包main:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> main()&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//基准包初始化</span></span><br><span class="line">    base.Init()</span><br><span class="line">    <span class="comment">//数据包初始化</span></span><br><span class="line">    data.Init()</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//开始执行flag.Parse()</span></span><br><span class="line">    <span class="keyword">var</span> f *SFlag.Flag = SFlag.GetFlag() </span><br><span class="line">    f.Parse()</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -122,7 +103,7 @@
         
   
   <div class="tags">
-    <a href="/tags/daemon/">daemon</a>, <a href="/tags/golang/">golang</a>, <a href="/tags/守护进程/">守护进程</a>
+    <a href="/tags/flag/">flag</a>, <a href="/tags/golang/">golang</a>
   </div>
 
         
@@ -135,7 +116,7 @@
 
   <section id="comments">
        <!-- 多说评论框 start -->
-     <div id="ds-thread" class="ds-thread" data-thread-key="golang-daemon.html" data-title="golang 守护进程 daemon 实现方式" data-url="http://blog.simonsun.net/golang-daemon.html"></div>
+     <div id="ds-thread" class="ds-thread" data-thread-key="golang-flag.html" data-title="golang使用flag中遇到的问题" data-url="http://blog.simonsun.net/golang-flag.html"></div>
        <!-- 多说评论框 end -->
        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
        <script type="text/javascript">

@@ -6,11 +6,11 @@
   <title>八皇后问题在各语言下执行时间测试 | simons blog</title>
   <meta name="author" content="simon sun">
   
-  <meta name="description" content="前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），
+  <meta name="description" content="新增 - 2015-09-06 17:32:28由于测试代码未保留（测试的时候直接存/tmp了）导致没有源代码，故也就没有后续了。。。
+
+前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），
 目前测试覆盖的代码有 C,GO,JAVA,PHP
-待写测试代码的有：PYTHON,RUBY,NODEJS,JS
-目前效率最高的是C语言，其次是GO，然后是JAVA，最慢的是PHP
-其中C语言在优化后可达到">
+待写测试代码的有">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -80,7 +80,9 @@
     </header>
     <div class="entry">
       
-        <p>前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），</p>
+        <h3 id="新增_-_2015-09-06_17:32:28">新增 - 2015-09-06 17:32:28</h3><p><em>由于测试代码未保留（测试的时候直接存/tmp了）导致没有源代码，故也就没有后续了。。。</em></p>
+<hr>
+<p>前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），</p>
 <p>目前测试覆盖的代码有 C,GO,JAVA,PHP</p>
 <p>待写测试代码的有：PYTHON,RUBY,NODEJS,JS</p>
 <p>目前效率最高的是C语言，其次是GO，然后是JAVA，最慢的是PHP</p>
@@ -90,19 +92,18 @@
 <p>PHP达到80毫秒左右，开APC达到56毫秒，通过查看OPCODE各种优化达到40毫秒（这时候已经影响到可读性了）</p>
 <p>附效率截图：</p>
 <p>优化后的C</p>
-<p><img src="/wp-content/uploads/2015/05/43C2D95475FD89063F422CE2781EE8E7_B500_900_193_63.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-optimize-c.jpeg" alt=""></p>
 <p>未优化的C</p>
-<p><img src="/wp-content/uploads/2015/05/EB8ED5CA077B7346D2773AEE4A02A153_B500_900_208_62.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-c.jpeg" alt=""></p>
 <p>JAVA</p>
-<p><img src="/wp-content/uploads/2015/05/6717B942A8DFEF9B4B43FBD149EEAB83_B500_900_279_65.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-java.jpeg" alt=""></p>
 <p>开启APC后的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/5E8F0D435B879E1E62108CFB4B0F8DFC_B500_900_320_61.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-apc-php.jpeg" alt=""></p>
 <p>未开启APC的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/D05B76E3515309E44374C0A288335E9E_B500_900_322_69.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-php.jpeg" alt=""></p>
 <p>&nbsp;</p>
 <p>golang:</p>
-<p>total results: 352</p>
-<p>total time: 2</p>
+<p>total results: 352<br>total time: 2</p>
 
       
     </div>
@@ -112,7 +113,7 @@
         
   
   <div class="tags">
-    <a href="/tags/性能/">性能</a>, <a href="/tags/测试/">测试</a>, <a href="/tags/算法/">算法</a>, <a href="/tags/算法、数据结构/">算法、数据结构</a>
+    <a href="/tags/性能/">性能</a>, <a href="/tags/数据结构/">数据结构</a>, <a href="/tags/测试/">测试</a>, <a href="/tags/算法/">算法</a>
   </div>
 
         
@@ -159,11 +160,11 @@
   <ul class="entry">
     
       <li>
-        <a href="/hello-world.html">Hello World</a>
+        <a href="/markdown-desc.html">markdown快速上手笔记</a>
       </li>
     
       <li>
-        <a href="/postName.html">postName</a>
+        <a href="/golang-flag.html">golang使用flag中遇到的问题</a>
       </li>
     
       <li>
@@ -197,15 +198,21 @@
   
     <li><a href="/tags/daemon/">daemon</a><small>1</small></li>
   
+    <li><a href="/tags/flag/">flag</a><small>1</small></li>
+  
     <li><a href="/tags/go/">go</a><small>1</small></li>
   
-    <li><a href="/tags/golang/">golang</a><small>3</small></li>
+    <li><a href="/tags/golang/">golang</a><small>5</small></li>
   
     <li><a href="/tags/javascript/">javascript</a><small>1</small></li>
   
     <li><a href="/tags/linux/">linux</a><small>2</small></li>
   
+    <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
+  
     <li><a href="/tags/php/">php</a><small>2</small></li>
+  
+    <li><a href="/tags/pprof/">pprof</a><small>1</small></li>
   
     <li><a href="/tags/queue/">queue</a><small>1</small></li>
   
@@ -219,7 +226,11 @@
   
     <li><a href="/tags/守护进程/">守护进程</a><small>1</small></li>
   
-    <li><a href="/tags/性能/">性能</a><small>1</small></li>
+    <li><a href="/tags/性能/">性能</a><small>2</small></li>
+  
+    <li><a href="/tags/性能优化/">性能优化</a><small>1</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>1</small></li>
   
     <li><a href="/tags/服务/">服务</a><small>1</small></li>
   
@@ -231,7 +242,7 @@
   
     <li><a href="/tags/算法/">算法</a><small>2</small></li>
   
-    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>2</small></li>
+    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>1</small></li>
   
     <li><a href="/tags/跨域/">跨域</a><small>1</small></li>
   

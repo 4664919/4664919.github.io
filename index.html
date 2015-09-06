@@ -65,25 +65,51 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-08-28T06:26:10.000Z"><a href="/hello-world.html">2015-08-28</a></time>
+        <time datetime="2015-09-06T09:07:34.000Z"><a href="/markdown-desc.html">2015-09-06</a></time>
       
       
   
-    <h1 class="title"><a href="/hello-world.html">Hello World</a></h1>
+    <h1 class="title"><a href="/markdown-desc.html">markdown快速上手笔记</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h1 id="前言">前言</h1><p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行（空行的定义是显示上看起来像是空的，便会被视为空行。比方说，若某一行只包含空格和制表符，则该行也会被视为空行）。普通段落不该用空格或制表符来缩进。</p>
+<h1 id="一级标题">一级标题</h1><h2 id="二级标题">二级标题</h2><h3 id="三级标题">三级标题</h3><h4 id="四级标题">四级标题</h4><p>#列表<br>列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，有序列表则直接在文字前加 1. 2. 3. 符号要和文字之间加上一个字符的空格。</p>
+<p>###无序列表</p>
+<ul>
+<li>-列表</li>
+<li>-列表</li>
+</ul>
+<ul>
+<li>*列表</li>
+<li>*列表</li>
+</ul>
+<ul>
+<li>+列表</li>
+<li>+列表</li>
+</ul>
+<p>###有序列表</p>
+<ol>
+<li>1列表 </li>
+<li>2列表 </li>
+</ol>
+<p>#引用</p>
+<blockquote>
+<p>例如这样</p>
+</blockquote>
+<p>###粗体与斜体</p>
+<p>Markdown 的粗体和斜体也非常简单，用两个 <em> 包含一段文本就是粗体的语法，用一个 </em> 包含一段文本就是斜体的语法。</p>
+<p><strong>粗体</strong> <em>斜体</em></p>
+<p>代码框</p>
+<p>如果你是个程序猿，需要在文章里优雅的引用代码框，在 Markdown 下实现也非常简单，只需要用两个 ` 把中间的代码包裹起来，如 <code>code</code>。图例：</p>
+<p><code>funciton abc(name int){
+        fmt.Println(&quot;helo world&quot;)
+    }</code></p>
+<p>分割线</p>
+<p>分割线的语法只需要另起一行，连续输入三个星号 <em>*</em> 即可。</p>
+<p>＃图片<br><img src="/upload/javascript-cross-origin-resource-sharing2.png" alt=""></p>
 
       
     </div>
@@ -100,7 +126,7 @@
 
 
 
-  <article class="[layout]">
+  <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -118,17 +144,28 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-08-28T06:06:08.000Z"><a href="/postName.html">2015-08-28</a></time>
+        <time datetime="2015-09-06T08:59:30.000Z"><a href="/golang-flag.html">2015-09-06</a></time>
       
       
   
-    <h1 class="title"><a href="/postName.html">postName</a></h1>
+    <h1 class="title"><a href="/golang-flag.html">golang使用flag中遇到的问题</a></h1>
   
 
     </header>
     <div class="entry">
       
-        
+        <h1 id="关于flag">关于flag</h1><p>在开发golang项目中，有用到flag。在使用中遇到一些问题：</p>
+<ol>
+<li>多次解析flag，会覆盖之前的：</li>
+</ol>
+<h2 id="出现的具体问题：">出现的具体问题：</h2><blockquote>
+<p>在开发项目包中<a href="/golang-daemon.html">守护进程 daemon 实现方式 </a>、<a href="/golang-pprof.html">关于golang性能调试</a> 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.</p>
+</blockquote>
+<p>代码示例：<br>包a:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> init() &#123;</span><br><span class="line">    <span class="keyword">if</span> daemon_args_exist() &#123;</span><br><span class="line">        flag.Parse()                                                                                                                           </span><br><span class="line">        ...</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>包b:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> parseProfFlags() &#123;</span><br><span class="line">    <span class="keyword">if</span> !flag.Parsed() &#123;                                                                                                                        </span><br><span class="line">        flag.Parse()</span><br><span class="line">    &#125;   </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="如何解决">如何解决</h3><p>虽然加了一些简单判断，其实是没有解决实际问题。根据golang的flag包，程序需要保证只执行一次parse，但是在daemon的程序中，初始化的时候有可能直接中断程序，故也需要一些开关来判断在什么时候执行parse。 其他包则是在主函数中程序初始化完毕后，加载flag.Parse()即可解决。</p>
+<p>包main:<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> main()&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//基准包初始化</span></span><br><span class="line">    base.Init()</span><br><span class="line">    <span class="comment">//数据包初始化</span></span><br><span class="line">    data.Init()</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//开始执行flag.Parse()</span></span><br><span class="line">    <span class="keyword">var</span> f *SFlag.Flag = SFlag.GetFlag() </span><br><span class="line">    f.Parse()</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer>
@@ -378,8 +415,8 @@
 <p>form、iframe 是很早之前使用的方式，在ajax之前就是用这个方法解决跨域的。介个很老了，现在很少用到它了</p>
 <p>cors   这个是新解决办法，只需要在header里配置一下就可以解决跨域问题。很方便也很简单。不过由于比较新很多老浏览器不支持，下图是各个浏览器的支持情况。</p>
 <p>&nbsp;</p>
-<p><img src="/wp-content/uploads/2015/05/06082033-9233ced009a644f9af909baca57a72b7.png" alt=""></p>
-<p><img src="/wp-content/uploads/2015/05/06082103-f46e697e71884240b7200f8713697fbc.png" alt=""></p>
+<p><img src="/upload/javascript-cross-origin-resource-sharing.png" alt=""></p>
+<p><img src="/upload/javascript-cross-origin-resource-sharing2.png" alt=""></p>
 <p>网上介绍跨域的代码有很多，所以这里只写原理。代码就不重复造轮子了。</p>
 
       
@@ -473,7 +510,9 @@
     </header>
     <div class="entry">
       
-        <p>前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），</p>
+        <h3 id="新增_-_2015-09-06_17:32:28">新增 - 2015-09-06 17:32:28</h3><p><em>由于测试代码未保留（测试的时候直接存/tmp了）导致没有源代码，故也就没有后续了。。。</em></p>
+<hr>
+<p>前几天公司内部同事想测试下语言的效率，当时使用八皇后问题进行测试（实际应用中代码都为九皇后），</p>
 <p>目前测试覆盖的代码有 C,GO,JAVA,PHP</p>
 <p>待写测试代码的有：PYTHON,RUBY,NODEJS,JS</p>
 <p>目前效率最高的是C语言，其次是GO，然后是JAVA，最慢的是PHP</p>
@@ -483,19 +522,18 @@
 <p>PHP达到80毫秒左右，开APC达到56毫秒，通过查看OPCODE各种优化达到40毫秒（这时候已经影响到可读性了）</p>
 <p>附效率截图：</p>
 <p>优化后的C</p>
-<p><img src="/wp-content/uploads/2015/05/43C2D95475FD89063F422CE2781EE8E7_B500_900_193_63.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-optimize-c.jpeg" alt=""></p>
 <p>未优化的C</p>
-<p><img src="/wp-content/uploads/2015/05/EB8ED5CA077B7346D2773AEE4A02A153_B500_900_208_62.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-c.jpeg" alt=""></p>
 <p>JAVA</p>
-<p><img src="/wp-content/uploads/2015/05/6717B942A8DFEF9B4B43FBD149EEAB83_B500_900_279_65.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-java.jpeg" alt=""></p>
 <p>开启APC后的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/5E8F0D435B879E1E62108CFB4B0F8DFC_B500_900_320_61.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-apc-php.jpeg" alt=""></p>
 <p>未开启APC的PHP</p>
-<p><img src="/wp-content/uploads/2015/05/D05B76E3515309E44374C0A288335E9E_B500_900_322_69.jpeg" alt=""></p>
+<p><img src="/upload/eight-queens-puzzle-testing-with-language-php.jpeg" alt=""></p>
 <p>&nbsp;</p>
 <p>golang:</p>
-<p>total results: 352</p>
-<p>total time: 2</p>
+<p>total results: 352<br>total time: 2</p>
 
       
     </div>
@@ -604,6 +642,51 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-05-07T09:51:12.000Z"><a href="/goalng-pprof.html">2015-05-07</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/goalng-pprof.html">golang 性能调优</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#todo</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-05-07T09:19:46.000Z"><a href="/why-write-blog.html">2015-05-07</a></time>
       
       
@@ -657,11 +740,11 @@
   <ul class="entry">
     
       <li>
-        <a href="/hello-world.html">Hello World</a>
+        <a href="/markdown-desc.html">markdown快速上手笔记</a>
       </li>
     
       <li>
-        <a href="/postName.html">postName</a>
+        <a href="/golang-flag.html">golang使用flag中遇到的问题</a>
       </li>
     
       <li>
@@ -695,15 +778,21 @@
   
     <li><a href="/tags/daemon/">daemon</a><small>1</small></li>
   
+    <li><a href="/tags/flag/">flag</a><small>1</small></li>
+  
     <li><a href="/tags/go/">go</a><small>1</small></li>
   
-    <li><a href="/tags/golang/">golang</a><small>3</small></li>
+    <li><a href="/tags/golang/">golang</a><small>5</small></li>
   
     <li><a href="/tags/javascript/">javascript</a><small>1</small></li>
   
     <li><a href="/tags/linux/">linux</a><small>2</small></li>
   
+    <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
+  
     <li><a href="/tags/php/">php</a><small>2</small></li>
+  
+    <li><a href="/tags/pprof/">pprof</a><small>1</small></li>
   
     <li><a href="/tags/queue/">queue</a><small>1</small></li>
   
@@ -717,7 +806,11 @@
   
     <li><a href="/tags/守护进程/">守护进程</a><small>1</small></li>
   
-    <li><a href="/tags/性能/">性能</a><small>1</small></li>
+    <li><a href="/tags/性能/">性能</a><small>2</small></li>
+  
+    <li><a href="/tags/性能优化/">性能优化</a><small>1</small></li>
+  
+    <li><a href="/tags/数据结构/">数据结构</a><small>1</small></li>
   
     <li><a href="/tags/服务/">服务</a><small>1</small></li>
   
@@ -729,7 +822,7 @@
   
     <li><a href="/tags/算法/">算法</a><small>2</small></li>
   
-    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>2</small></li>
+    <li><a href="/tags/算法、数据结构/">算法、数据结构</a><small>1</small></li>
   
     <li><a href="/tags/跨域/">跨域</a><small>1</small></li>
   
