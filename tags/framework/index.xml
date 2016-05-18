@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Framework on simons blog</title>
+    <link>http://blog.simonsun.net/tags/framework/</link>
+    <description>Recent content in Framework on simons blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.simonsun.net/tags/framework/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>BeeGo初探</title>
+      <link>http://blog.simonsun.net/golang-beego-use/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-beego-use/</guid>
+      <description>
+
+&lt;h2 id=&#34;写在最前:85665b9a786fe827d0056a80c9c2d556&#34;&gt;写在最前&lt;/h2&gt;
+
+&lt;p&gt;框架是对底层的封装，在使用golang之前一直都是做PHP开发，而PHP的框架很多像CI、YII、PhalconPHP等，当然自己也尝试着写了一下框架。在开始使用golang的时候为了了解底层也就没有使用框架。&lt;code&gt;本次了解beego是想学习下beego的代码&lt;/code&gt;，顺便完善下自己的框架。&lt;br /&gt;
+作者花了一天时间去看文档以及代码，免不了有些细节不够了解。&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+在最开始学习golang时就是看astaxie的书，也是那个时候知道的BeeGo。BeeGo是重量级的Go框架,github上标星快6k了。其优点自不必说。以下是我查看文档、代码中遇到的问题和疑惑。&lt;/p&gt;
+
+&lt;h2 id=&#34;文档相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;文档相关&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;beego集成了脚手架,通过new、run等实现快速开发,这个很赞&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;beego内部封装了路由、控制器、模块、视图等mvc功能&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;参数配置：这个不是很好用和我最初使用的方法一致，个人觉得配置最好用的应该是反射放到struct中，这样用起来才爽.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;获取参数：还是有些欠缺应该可以格式化全部(大部分)类型，而且返回值最好一个，直接解析到struct这个很赞&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;数据绑定：Bind这个有点意思，特意查看了代码。代码很赞!值得参考.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;日志：日志可以输出到各种类型，很屌的样子，但是看文档中没有说明多文件存储，不能处理复杂业务，更不要说并发日志的处理了。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;模块－数据库操作，关于orm只用过gorm，单看API感觉比gorm好用,比gorm更多实用的封装，少了一些不好理解的东西&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;代码相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;代码相关&lt;/h2&gt;
+
+&lt;p&gt;config包，包里包含ini、json、xml、yaml等格式。关于配置这块我自己写过也用过其他人的，对比下来ini说实话将近400行代码有点啰嗦,推荐这个屌炸天的&lt;code&gt;github.com/go-ini/ini&lt;/code&gt; 反射到struct超好用
+cache包是对cache的封装，底层都是用第三方库，自不必多说,其中文件、内存缓存是直接写的，想写简单缓存的可以参考
+httplib包是封装http请求，之前都是直接调http请求，这个是封装一下，调用方便。
+logs包为多输出，这个值得借鉴&lt;/p&gt;
+
+&lt;p&gt;BeeGo是很好的一个框架，但是由于工作原因（后端服务，属于底层很多功能用不到又对性能要求比较高）无法使用。总的来说BeeGo不管用来学习还是作为框架来使用都是一个很好的选择。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

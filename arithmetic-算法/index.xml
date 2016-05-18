@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arithmetic-算法s on simons blog</title>
+    <link>http://blog.simonsun.net/arithmetic-%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in Arithmetic-算法s on simons blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.simonsun.net/arithmetic-%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title></title>
+      <link>http://blog.simonsun.net/arithmetic-%E7%AE%97%E6%B3%95/base/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/arithmetic-%E7%AE%97%E6%B3%95/base/</guid>
+      <description>&lt;p&gt;va 编程模型、
+数据抽象、基本数据结构、集合类的抽象数据类型、算法性能分析的方法和一个案例分析。
+第 2 章 排序
+有序地重新排列数组中的元素是非常重要的基础算法。我们会深入研究各种排序算法,包括插
+入排序、选择排序、希尔排序、快速排序、归并排序和堆排序。同时我们还会讨论另外一些算法, 它们用于解决几个与排序相关的问题,例如优先队列、选举以及归并。其中许多算法会成为后续章 节中其他算法的基础。
+第 3 章 查找
+从庞大的数据集中找到指定的条目也是非常重要的。我们将会讨论基本的和高级的查找算法, 包括二叉查找树、平衡查找树和散列表。我们会梳理这些方法之间的关系并比较它们的性能。
+第 4 章 图
+图的主要内容是对象和它们的连接,连接可能有权重和方向。利用图可以为大量重要而困难的 问题建模,因此图算法的设计也是本书的一个主要研究领域。我们会研究深度优先搜索、广度优先 搜索、连通性问题以及若干其他算法和应用,包括 Kruskal 和 Prim 的最小生成树算法、Dijkstra 和 Bellman-Ford 的最短路径算法。
+第 5 章 字符串
+字符串是现代应用程序中的重要数据类型。我们将会研究一系列处理字符串的算法,首先是对
+字符串键的排序和查找的快速算法,然后是子字符串查找、正则表达式模式匹配和数据压缩算法。 此外,在分析一些本身就十分重要的基础问题之后,这一章对相关领域的前沿话题也作了介绍。
+第 6 章 背景
+这一章将讨论与本书内容有关的若干其他前沿研究领域,包括科学计算、运筹学和计算理论。 我们会介绍性地讲一下基于事件的模拟、B 树、后缀数组、最大流量问题以及其他高级主题,以帮 助读者理解算法在许多有趣的前沿研究领域中所起到的巨大作用。最后,我们会讲一讲搜索问题、 问题转化和 NP 完全性等算法研究的支柱理论,以及它们和本书内容的联系。&lt;/p&gt;
+
+&lt;p&gt;目前(略读)读到：&lt;/p&gt;
+
+&lt;p&gt;算法完全版－257
+aha算法 读完&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

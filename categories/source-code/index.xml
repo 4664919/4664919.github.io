@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Source Code on simons blog</title>
+    <link>http://blog.simonsun.net/categories/source-code/</link>
+    <description>Recent content in Source Code on simons blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://blog.simonsun.net/categories/source-code/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Golang 源码初探</title>
+      <link>http://blog.simonsun.net/golang-code-source/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-code-source/</guid>
+      <description>
+
+&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
+
+&lt;h2 id=&#34;初始化:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;初始化&lt;/h2&gt;
+
+&lt;p&gt;初始化cpu： 源代码/runtime/os1_[所属环境].go ,通过getproccount函数调用不同底层的命令sysctl[mac]、sched_getaffinity[linux]&lt;br /&gt;
+设置进程数：源代码/runtime/proc1.go,通过procresize函数设置P的数量，1.3的时候比较暴力，似乎是cpu的倍数，特意查看了1.3源代码，是c写的。也都是调用系统底层命令。&lt;br /&gt;
+调用runtime.main:栈大小设置：64位1GB，32位250MB。&lt;/p&gt;
+
+&lt;h2 id=&#34;内存管理:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;内存管理：&lt;/h2&gt;
+
+&lt;p&gt;malloc相关文件，
+runtime/debug.FreeOSMemory 函数主动释放内存
+除用 GODEBUG=&amp;ldquo;gctrace=1&amp;rdquo; 输出垃圾回收状态信息外,某些时候我们还需要自行获取内 存相关统计数据&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

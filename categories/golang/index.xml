@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on simons blog</title>
+    <link>http://blog.simonsun.net/categories/golang/</link>
+    <description>Recent content in Golang on simons blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Jan 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://blog.simonsun.net/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>测试相关－golang</title>
+      <link>http://blog.simonsun.net/golang-testing/</link>
+      <pubDate>Mon, 25 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-testing/</guid>
+      <description>
+
+&lt;h2 id=&#34;测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试的重要性&lt;/h2&gt;
+
+&lt;p&gt;体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&amp;gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。&lt;br /&gt;
+本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;测试类别:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试类别：&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;功能测试、单元测试&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;覆盖率测试 code coverage&amp;gt;&lt;/li&gt;
+&lt;li&gt;随机测试&lt;/li&gt;
+&lt;li&gt;样本测试&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;基准/基线测试 base line testing / benchmark testing&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;性能测试  performance test&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;负载测试 load testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;压力测试 stress testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;稳定性测试[可靠性] scalability testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;疲劳测试 endurance testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;组合测试 combination testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;远程/机房测试 remote/local testing&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;每秒查询率[QPS Queries Per Second ]&lt;/li&gt;
+&lt;li&gt;响应时间[Response Time]：&lt;/li&gt;
+&lt;li&gt;服务器资源[]：&lt;/li&gt;
+&lt;li&gt;吞吐量[TPS Transactions Per Second]：&lt;/li&gt;
+&lt;li&gt;并发用户数&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li&gt;性能测试（可用性测试）    
+主要是测试正常业务量下，成功率、每秒检索量、平均处理时间、服务器资源利用率。主要考察，该系统是否符合业务需求，能否达到上线要求。   &lt;/li&gt;
+&lt;li&gt;压力测试    
+测试峰值情况下，长时间连续运行系统给系统性能造成的影响。&lt;/li&gt;
+&lt;li&gt;负载测试
+测试不同并发数下，单机/单套系统的极限并发。&lt;/li&gt;
+&lt;li&gt;容量测试    
+主要是测试数据量非常大的情况下，内存、磁盘、访问性能。一般系统刚上线，数据量较小，性能一般没有什么问题，把数据放大到百万、千万量级，再测测系统，可能之前未能暴露的问题就出来了。   &lt;/li&gt;
+&lt;li&gt;疲劳测试    
+连续24小时以上测试，看有没有内存碎片和内存泄露等问题.&lt;/li&gt;
+&lt;li&gt;配置测试    
+不同参数下的性能，后台程序会有很多开关，需要测试主要的开关情况下对性能的影响，或者不同的参数数量对于性能的影响。比较简单的例子就是，索引长度设置为128和1024对于系统的性能究竟有多大的影响。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，&lt;/p&gt;
+
+&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/web-test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;术语说明：
+QPS = req/sec = 请求数/秒
+【QPS计算PV和机器的方式】
+QPS统计方式 [一般使用 http_load 进行统计]
+QPS = 总请求数 / ( 进程总数 *   请求时间 )
+QPS: 单个进程每秒请求服务器的成功次数&lt;/p&gt;
+
+&lt;p&gt;单台服务器每天PV计算
+公式1：每天总PV = QPS * 3600 * 6
+公式2：每天总PV = QPS * 3600 * 8&lt;/p&gt;
+
+&lt;p&gt;服务器计算
+服务器数量 =   ceil( 每天总PV / 单台服务器每天总PV )&lt;/p&gt;
+
+&lt;p&gt;【峰值QPS和机器计算公式】&lt;/p&gt;
+
+&lt;p&gt;原理：每天80%的访问集中在20%的时间里，这20%时间叫做峰值时间
+公式：( 总PV数 * 80% ) / ( 每天秒数 * 20% ) = 峰值时间每秒请求数(QPS)
+机器：峰值时间每秒QPS / 单台机器的QPS   = 需要的机器&lt;/p&gt;
+
+&lt;p&gt;问：每天300w PV 的在单台机器上，这台机器需要多少QPS？
+答：( 3000000 * 0.8 ) / (86400 * 0.2 ) = 139 (QPS)&lt;/p&gt;
+
+&lt;p&gt;问：如果一台机器的QPS是58，需要几台机器来支持？
+答：139 / 58 = 3&lt;/p&gt;
+
+&lt;p&gt;QPS提升带来什么？QPS提升说明单台服务器处理能力提升，如果QPS提升1倍，服务器资源减少1半，或者说服务器不变可以支撑2倍的请求量。
+如何提升QPS？
+1）减少CPU的使用时间（哪些代码会消耗CPU：循环、字符串拼接\查找\替换、编码\解码、序列化\反序列化、压缩）
+2）增加CPU的数量
+3）减少同步锁
+（如果CPU不能被压到85%以上，并且此时的QPS已经达到了峰值，则说明另有瓶颈，接下去关注内存）
+RT提升带来什么？
+响应速度提升说明单词请求的处理速度提升，用户感觉任务处理速度更快，系统反应速度更快。当然在处理能力不变的情况下，RT的提升必然会提升QPS。
+如何提升RT？
+1）减少I/O的响应时间
+2）减少I/O的调用次数
+3）减少CPU使用时间（当然在I/O占大头的应用里，这方面优化效果肯定不明显）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>覆盖率测试－测试相关－golang</title>
+      <link>http://blog.simonsun.net/golang-testing-code-coverage/</link>
+      <pubDate>Mon, 25 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-testing-code-coverage/</guid>
+      <description>
+
+&lt;h3 id=&#34;相关参数:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;相关参数&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;示例&lt;/th&gt;
+&lt;th&gt;注释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-cover&lt;/td&gt;
+&lt;td&gt;-cover&lt;/td&gt;
+&lt;td&gt;表示开启覆盖率&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-covermode&lt;/td&gt;
+&lt;td&gt;-covermode=set&lt;/td&gt;
+&lt;td&gt;覆盖率统计模式：   &lt;br&gt;set只记录是否执行过.  &lt;br&gt; count统计执行次数. &lt;br&gt;原子方式atomic统计执行次数.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-coverpkg&lt;/td&gt;
+&lt;td&gt;-coverpkg pkg1,pkg2,pkg3&lt;/td&gt;
+&lt;td&gt;统计覆盖测试其他包，多个以，号分隔&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-coverprofile&lt;/td&gt;
+&lt;td&gt;-coverprofile cover.out&lt;/td&gt;
+&lt;td&gt;数据写入到指定文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&#34;demo:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;DEMO&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+go test -cover -coverprofile cover.out ./logv3/
+ok      xidibuy/logv3   0.010s  coverage: 65.1% of statements
+&lt;/code&gt;&lt;/pre&gt;
+cover.out 内容：
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+mode: set                                                                                                                                      
+xidibuy/logv3/console.go:21.68,24.2 2 1
+xidibuy/logv3/console.go:26.51,30.26 2 1
+xidibuy/logv3/console.go:33.2,34.12 2 1
+xidibuy/logv3/console.go:30.26,32.3 1 1
+xidibuy/logv3/console.go:36.30,38.2 0 0
+xidibuy/logv3/console.go:39.28,41.2 0 0
+xidibuy/logv3/file.go:20.59,24.2 2 1
+xidibuy/logv3/file.go:26.48,30.26 2 1
+xidibuy/logv3/file.go:33.2,34.12 2 1
+xidibuy/logv3/file.go:30.26,32.3 1 0
+xidibuy/logv3/file.go:36.27,38.2 0 0
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上输出详情并不利于人来观看，可使用go tool 查看html格式的内容
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+go tool cover -html=cover.out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&#34;http://blog.simonsun.net/upload/golang-testing-code-coverage.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>你好，Hugo</title>
+      <link>http://blog.simonsun.net/welcome/</link>
+      <pubDate>Wed, 23 Sep 2015 16:30:37 +0800</pubDate>
+      
+      <guid>http://blog.simonsun.net/welcome/</guid>
+      <description>&lt;p&gt;这是使用Hugo创建的站点中的第一篇文章。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>你好，Hugo2</title>
+      <link>http://blog.simonsun.net/s/</link>
+      <pubDate>Wed, 23 Sep 2015 16:30:37 +0800</pubDate>
+      
+      <guid>http://blog.simonsun.net/s/</guid>
+      <description>&lt;p&gt;这是使用Hugo创建的站点中的第一篇文章。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>BeeGo初探</title>
+      <link>http://blog.simonsun.net/golang-beego-use/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-beego-use/</guid>
+      <description>
+
+&lt;h2 id=&#34;写在最前:85665b9a786fe827d0056a80c9c2d556&#34;&gt;写在最前&lt;/h2&gt;
+
+&lt;p&gt;框架是对底层的封装，在使用golang之前一直都是做PHP开发，而PHP的框架很多像CI、YII、PhalconPHP等，当然自己也尝试着写了一下框架。在开始使用golang的时候为了了解底层也就没有使用框架。&lt;code&gt;本次了解beego是想学习下beego的代码&lt;/code&gt;，顺便完善下自己的框架。&lt;br /&gt;
+作者花了一天时间去看文档以及代码，免不了有些细节不够了解。&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+在最开始学习golang时就是看astaxie的书，也是那个时候知道的BeeGo。BeeGo是重量级的Go框架,github上标星快6k了。其优点自不必说。以下是我查看文档、代码中遇到的问题和疑惑。&lt;/p&gt;
+
+&lt;h2 id=&#34;文档相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;文档相关&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;beego集成了脚手架,通过new、run等实现快速开发,这个很赞&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;beego内部封装了路由、控制器、模块、视图等mvc功能&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;参数配置：这个不是很好用和我最初使用的方法一致，个人觉得配置最好用的应该是反射放到struct中，这样用起来才爽.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;获取参数：还是有些欠缺应该可以格式化全部(大部分)类型，而且返回值最好一个，直接解析到struct这个很赞&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;数据绑定：Bind这个有点意思，特意查看了代码。代码很赞!值得参考.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;日志：日志可以输出到各种类型，很屌的样子，但是看文档中没有说明多文件存储，不能处理复杂业务，更不要说并发日志的处理了。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;模块－数据库操作，关于orm只用过gorm，单看API感觉比gorm好用,比gorm更多实用的封装，少了一些不好理解的东西&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;代码相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;代码相关&lt;/h2&gt;
+
+&lt;p&gt;config包，包里包含ini、json、xml、yaml等格式。关于配置这块我自己写过也用过其他人的，对比下来ini说实话将近400行代码有点啰嗦,推荐这个屌炸天的&lt;code&gt;github.com/go-ini/ini&lt;/code&gt; 反射到struct超好用
+cache包是对cache的封装，底层都是用第三方库，自不必多说,其中文件、内存缓存是直接写的，想写简单缓存的可以参考
+httplib包是封装http请求，之前都是直接调http请求，这个是封装一下，调用方便。
+logs包为多输出，这个值得借鉴&lt;/p&gt;
+
+&lt;p&gt;BeeGo是很好的一个框架，但是由于工作原因（后端服务，属于底层很多功能用不到又对性能要求比较高）无法使用。总的来说BeeGo不管用来学习还是作为框架来使用都是一个很好的选择。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Golang 源码初探</title>
+      <link>http://blog.simonsun.net/golang-code-source/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-code-source/</guid>
+      <description>
+
+&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
+
+&lt;h2 id=&#34;初始化:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;初始化&lt;/h2&gt;
+
+&lt;p&gt;初始化cpu： 源代码/runtime/os1_[所属环境].go ,通过getproccount函数调用不同底层的命令sysctl[mac]、sched_getaffinity[linux]&lt;br /&gt;
+设置进程数：源代码/runtime/proc1.go,通过procresize函数设置P的数量，1.3的时候比较暴力，似乎是cpu的倍数，特意查看了1.3源代码，是c写的。也都是调用系统底层命令。&lt;br /&gt;
+调用runtime.main:栈大小设置：64位1GB，32位250MB。&lt;/p&gt;
+
+&lt;h2 id=&#34;内存管理:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;内存管理：&lt;/h2&gt;
+
+&lt;p&gt;malloc相关文件，
+runtime/debug.FreeOSMemory 函数主动释放内存
+除用 GODEBUG=&amp;ldquo;gctrace=1&amp;rdquo; 输出垃圾回收状态信息外,某些时候我们还需要自行获取内 存相关统计数据&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>golang日志系统架构设计</title>
+      <link>http://blog.simonsun.net/logv3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/logv3/</guid>
+      <description>
+
+&lt;p&gt;#[名言] 不断的重构，模块会越来越壮大，功能会越来越多，代码会复杂，这时候开始重构。&lt;/p&gt;
+
+&lt;h3 id=&#34;为啥鞋日志包:7fd877a2562cbb7976f27484b36083fa&#34;&gt;为啥鞋日志包&lt;/h3&gt;
+
+&lt;p&gt;日志是debug不可或缺的模块，当出现问题时可以追踪问题、查看异常原因。作为后端服务，需要能够回溯问题并告知使用服务的同学问题出在哪里。
+目前还未发现比较健壮、并且适用本地服务的开源日志包，所以只能自己动手。&lt;/p&gt;
+
+&lt;h3 id=&#34;日志包的使用臆测:7fd877a2562cbb7976f27484b36083fa&#34;&gt;日志包的使用臆测&lt;/h3&gt;
+
+&lt;p&gt;可以不初始化 - 单元测试、无需日志的时候，可以直接使用。
+可以支持并发日志。－日志按块写入，根据pkid查看整个生命周期
+可以不同端输出。－ 日志可以同时写入文件、控制台
+可以多文件存储。－ 日志根据业务[组]写入不同的文件中&lt;/p&gt;
+
+&lt;p&gt;我们会收到使用服务的同学的各种问题&lt;/p&gt;
+
+&lt;h3 id=&#34;v3版本日志功能:7fd877a2562cbb7976f27484b36083fa&#34;&gt;v3版本日志功能：&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持并发写入
+
+&lt;ul&gt;
+&lt;li&gt;块级写入&lt;/li&gt;
+&lt;li&gt;原子操作ID&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;多分组输出
+
+&lt;ul&gt;
+&lt;li&gt;按名字分别写入&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;多种输出方式
+
+&lt;ul&gt;
+&lt;li&gt;console - stdout&lt;/li&gt;
+&lt;li&gt;file&lt;/li&gt;
+&lt;li&gt;queue 队列输出&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;打印文件名，行号&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;日志与内置log-beego-log的区别:7fd877a2562cbb7976f27484b36083fa&#34;&gt;日志与内置log、BeeGo log的区别&lt;/h3&gt;
+
+&lt;p&gt;使用为了简单，快速开发，以及更好的兼容本地服务。
+log可以多文件存储，但是多种输出方式得封装
+BeeGo可以多种输出方式，但是文件只能一个&lt;/p&gt;
+
+&lt;p&gt;使用方式[简单版]:&lt;br /&gt;
+var log *logv3.Logger = logv3.NewLog(nil)
+log.Debug(&amp;ldquo;log debug&amp;rdquo;,1,2,&amp;ldquo;content&amp;rdquo;)
+log.Error(&amp;ldquo;faild&amp;rdquo;)
+输出到console：
+[2015-10-22 11:33:22,debug] log debug 1 2 content
+[2015-10-22 11:33:22,info] faild
+[2015-10-22 11:33:22,debug] faild
+[2015-10-22 11:33:22,error] faild&lt;/p&gt;
+
+&lt;p&gt;使用方式:&lt;br /&gt;
+//创建日志配置
+var log_struct *logv3.LogStruct = &amp;amp;logv3.LogStruct{
+    OpenFileLine : false,
+    FileStruct:&amp;amp;logv3.FileStruct{
+        LogPath:&amp;ldquo;/tmp/testlog/&amp;rdquo;,
+        LogName:&amp;ldquo;log&amp;rdquo;,
+    },
+    ConsoleStruct:&amp;amp;logv3.ConsoleStruct{&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+//创建一个logger
+var log *logv3.Logger = logv3.NewLog(log_struct)
+//创建一个分组
+var group1 *logv3.Group  = log.NewGroup(&amp;ldquo;group_name1&amp;rdquo;)
+group1.Debug(&amp;ldquo;log_debug1&amp;rdquo;)
+//创建一个分组
+var group2 *logv3.Group  = log.NewGroup(&amp;ldquo;group_name2&amp;rdquo;)
+group2.Debug(&amp;ldquo;log_debug2&amp;rdquo;)
+//原log可以继续使用
+log.Debug(&amp;ldquo;log_debug0&amp;rdquo;)&lt;/p&gt;
+
+&lt;p&gt;会输出到console，并且写入文件
+[2015-10-22 11:33:22,0,debug] log_debug1
+[2015-10-22 11:33:22,0,debug] log_debug2
+[2015-10-22 11:33:22,0,debug] log_debug0&lt;/p&gt;
+
+&lt;p&gt;文件：/tmp/testlog/log-debug-2015-10-22.log
+内容：
+[2015-10-22 11:33:22,0,debug] log_debug0&lt;/p&gt;
+
+&lt;p&gt;文件：/tmp/testlog/group_name1-debug-2015-10-22.log
+内容：
+[2015-10-22 11:33:22,1,debug] log_debug1&lt;/p&gt;
+
+&lt;p&gt;文件：/tmp/testlog/group_name2-debug-2015-10-22.log
+内容：
+[2015-10-22 11:33:22,2,debug] log_debug2&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>算法 － 二分查找(Binary Search)</title>
+      <link>http://blog.simonsun.net/arithmetic-binary-search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/arithmetic-binary-search/</guid>
+      <description>
+
+&lt;h2 id=&#34;前言:5ec26f00f35df1515016e8c39c803553&#34;&gt;前言：&lt;/h2&gt;
+
+&lt;p&gt;算法时间复杂度按优劣排差不多集中在：&lt;/p&gt;
+
+&lt;p&gt;O(1), O(log n), O(n), O(n log n), O(n2), O(nk), O(2n)&lt;/p&gt;
+
+&lt;p&gt;到目前位置，似乎我学到的算法中，时间复杂度是O(log n),好像就数二分查找法，其他的诸如排序算法都是 O(n log n)或者O(n2)。但是也正是因为有二分的 O(log n), 才让很多 O(n2)缩减到只要O(n log n)。&lt;/p&gt;
+
+&lt;p&gt;作用：&lt;/p&gt;
+
+&lt;p&gt;二分查找法主要是解决在“一堆数中找出指定的数”这类问题。&lt;/p&gt;
+
+&lt;p&gt;条件：&lt;/p&gt;
+
+&lt;p&gt;想要应用二分查找法，这“一堆数”必须有一下特征：&lt;/p&gt;
+
+&lt;p&gt;存储在数组中&lt;/p&gt;
+
+&lt;p&gt;有序排列&lt;/p&gt;
+
+&lt;p&gt;搜索值必须在数组中&lt;/p&gt;
+
+&lt;p&gt;原理：&lt;/p&gt;
+
+&lt;p&gt;二分查找算法就是不断将数组进行对半分割，每次拿中间元素和goal进行比较。&lt;/p&gt;
+
+&lt;p&gt;代码示例：&lt;/p&gt;
+
+&lt;p&gt;php:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;php&#34;&gt;
+&amp;lt;?php
+$array = array(1,3,4,6,6,6,7,8,9,10);
+
+$search = 9;
+
+$res = binarySearch($array,$search);
+
+var_dump($res);
+
+/**
+
+* 二分查找(binary search)
+
+* 返回搜索值在数组中的位置，如搜索不到返回false
+
+*/
+
+function binarySearch($array ,$search) {
+
+$high = count($array) - 1;
+
+$low = 0 ;
+
+//搜索值不存在于数组中则搜索不到
+
+if($search &amp;lt; $array[$low] || $search &amp;gt; $array[$high]){
+
+return false ;
+
+}
+
+while ($low &amp;lt;= $high){
+
+//取中间位置
+
+$mid = floor($low + ($high - $low)/2) ;
+
+if($array[$mid]&amp;gt;$search){//如果搜索值小于当前中间位置，则设置最大边界为当前中间位置－1
+
+$high = $mid - 1 ;
+
+}else if($array[$mid]&amp;lt;$search){//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+$low  = $mid + 1 ;
+
+}else{
+
+//不大于也不小于就是等于了
+
+return $mid ;
+
+}
+
+}
+
+return false ;
+
+}
+?&amp;lt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;golang:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;
+package main
+
+import (
+
+&#34;errors&#34;
+
+&#34;fmt&#34;
+
+)
+
+func main() {
+
+var array []int = []int{1, 3, 4, 6, 6, 6, 7, 8, 9, 10}
+
+var search int = 9
+
+var pos int
+
+var err error
+
+pos, err = binarySearch(array, search)
+
+fmt.Println(pos)
+
+fmt.Println(err)
+
+}
+
+func binarySearch(array []int, search int) (pos int, err error) {
+
+var low int = 0
+
+var high int = len(array) - 1
+
+var middle int
+
+for low &amp;lt;= high {
+
+//取中间位置
+
+middle = low + (high-low)/2
+
+//如果搜索值小于当前中间位置，则设置最大边界为当前中间位置－1
+
+if array[middle] &amp;gt; search {
+
+high = middle - 1
+
+continue
+
+}
+
+//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+if array[middle] &amp;lt; search {
+
+high = middle - 1
+
+continue
+
+}
+
+//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+if array[middle] &amp;lt; search {
+
+low = middle + 1
+
+continue
+
+}
+
+//不大于也不小于就是等于了
+
+if array[middle] == search {
+
+return middle, nil
+
+}
+
+}
+
+return -1, errors.New(&#34;not find&#34;)
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;缺陷:5ec26f00f35df1515016e8c39c803553&#34;&gt;缺陷：&lt;/h2&gt;
+
+&lt;p&gt;二分查找法的O(log n)让它成为十分高效的算法。不过它的缺陷却也是那么明显的。就在它的限定之上：&lt;/p&gt;
+
+&lt;p&gt;必须有序，我们很难保证我们的数组都是有序的。当然可以在构建数组的时候进行排序，可是又落到了第二个瓶颈上：它必须是数组。&lt;/p&gt;
+
+&lt;p&gt;数组读取效率是O(1)，可是它的插入和删除某个元素的效率却是O(n)。因而导致构建有序数组变成低效的事情。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

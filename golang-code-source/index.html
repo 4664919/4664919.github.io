@@ -1,0 +1,102 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Golang 源码初探 &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>Golang 源码初探</h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<h1 id="主要是跟着雨痕的文章一起研究的:267e5e576bf58833f83b1baa2ec0c5a3">主要是跟着雨痕的文章一起研究的</h1>
+
+<h2 id="初始化:267e5e576bf58833f83b1baa2ec0c5a3">初始化</h2>
+
+<p>初始化cpu： 源代码/runtime/os1_[所属环境].go ,通过getproccount函数调用不同底层的命令sysctl[mac]、sched_getaffinity[linux]<br />
+设置进程数：源代码/runtime/proc1.go,通过procresize函数设置P的数量，1.3的时候比较暴力，似乎是cpu的倍数，特意查看了1.3源代码，是c写的。也都是调用系统底层命令。<br />
+调用runtime.main:栈大小设置：64位1GB，32位250MB。</p>
+
+<h2 id="内存管理:267e5e576bf58833f83b1baa2ec0c5a3">内存管理：</h2>
+
+<p>malloc相关文件，
+runtime/debug.FreeOSMemory 函数主动释放内存
+除用 GODEBUG=&ldquo;gctrace=1&rdquo; 输出垃圾回收状态信息外,某些时候我们还需要自行获取内 存相关统计数据</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

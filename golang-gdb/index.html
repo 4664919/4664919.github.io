@@ -1,0 +1,199 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      <p>#golang调试工具： GDB</p>
+
+<p>使用  -gcflags &ldquo;-N -l&rdquo; 选项编译程序，这些选项阻止编译器使用内联函数和变量。</p>
+
+<p>Demo:
+go build -gcflags &ldquo;-N -l&rdquo; ./src/web/main.go</p>
+
+<p>#安装相关
+本地mac下的gdb不好使</p>
+
+<p>先查看原GDB
+which gdb
+/usr/local/bin/gdb
+ll /usr/local/bin/gdb
+lrwxr-xr-x  1 root  wheel    27B  1 28  2015 /usr/local/bin/gdb -&gt; ../Cellar/gdb/7.7.1/bin/gdb</p>
+
+<p>备份一下原GDB:
+sudo mv /usr/local/bin/gdb /usr/local/bin/gdb7.7.1</p>
+
+<p>下载最新的gdb
+cd /usr/local/src/
+sudo wget &lsquo;<a href="ftp://sourceware.org/pub/gdb/releases/gdb-7.9.tar.gz'">ftp://sourceware.org/pub/gdb/releases/gdb-7.9.tar.gz'</a></p>
+
+<p>sudo tar -zxvf gdb-7.9.tar.gz
+cd gdb-7.9
+sudo ./configure
+sudo make
+sudo make install</p>
+
+<p>这里查看最新的Gdb
+<a href="ftp://sourceware.org/pub/gdb/releases/">ftp://sourceware.org/pub/gdb/releases/</a></p>
+
+<p>///////&mdash;&ndash;
+COYP:</p>
+
+<p>gdb [options] &ndash;args executable-file [inferior-arguments &hellip;]</p>
+
+<pre><code>l - 相当于list命令，l 37 显示37行附近的源码
+b 行号，b 37 if i==3
+b 函数名.函数名
+i b - 查看全部断点信息
+d - 删除所有断点
+d 0 - 删除第0个断点
+display a - 一直显示a的值
+undisplay - 去掉所有显示
+watch addr - 监控addr内存
+s - step的意思进入函数进行跟踪
+j 37 - 直接跳到37行运行
+u - 将循环执行完
+p a - 打印a的值
+p a=3 - 设置a的值，p (*(mystruct *)addr) 打印一个数据结构，addr为其地址
+r - 运行程序到断点
+n - next的意思继续执行下一条语句
+c - continue的意思，继续执行跳过当前断点， c 3 忽略3次断点
+bt - 查看函数堆栈
+where - 查看堆栈信息
+up - 回溯一层堆栈
+down - 到下一层堆栈
+shell - 进入shell，如果再exit会回到gdb， shell echo $env
+enable n - 开启第n个断点
+disable n - 禁用第n个断点
+finish - 执行本函数并返回
+dir - 加目录
+</code></pre>
+
+<p>关闭GDB时，发现未退出应用程序：</p>
+
+<p>a. 查找被占用的端口
+netstat -tln
+netstat -tln | grep 8060
+netstat -tln 查看端口使用情况，而 netstat -tln | grep 8060 则是只查看端口8060的使用情况
+b. 查看端口属于哪个程序？端口被哪个进程占用
+lsof -i:8060</p>
+
+<p>lsof -i:9000
+COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+revel 24739 yourihua 8u IPv6 576421 0t0 TCP *:9000 (LISTEN)</p>
+
+<p>c.杀掉占用端口的进程 根据pid杀掉</p>
+
+<p>kill -9 进程id
+kill -9 24739</p>
+
+<p>目的：使用gdb附加到一个正在运行的进程上，然后做一些调试，并安全退出。</p>
+
+<ol>
+<li><p>修改Ubuntu配置，允许gdb附加到进程上，如何修改如下：
+<a href="http://askubuntu.com/questions/41629/after-upgrade-gdb-wont-attach-to-process">http://askubuntu.com/questions/41629/after-upgrade-gdb-wont-attach-to-process</a></p></li>
+
+<li><p>查看进程id #ps ax 或者 #ps au</p></li>
+
+<li><p>启动gdb</p></li>
+
+<li><p>使用file命令来指定进程所联系的程序源代码和符号表，例如:</p></li>
+</ol>
+
+<p>file 要附加的源代码目录</p>
+
+<ol>
+<li><p>attach &lt;进程ID&gt;</p></li>
+
+<li><p>打断点，如下：</p></li>
+</ol>
+
+<p>b path/to/app.go:10</p>
+
+<ol>
+<li><p>输入c，进程继续运行。</p></li>
+
+<li><p>ctrl + c再次中断，回到gdb命令行，然后输入：deatch。
+当你调试结束之后，可以使用该命令断开进程与gdb的连接(结束gdb对进程的控制)，在这个命令执行之后，你所调试的那个进程将继续运行。</p></li>
+</ol>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

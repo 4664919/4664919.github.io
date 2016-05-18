@@ -1,0 +1,167 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<p>title: 一次网站劫持排查
+tags:
+  - security
+  - 安全
+  - web安全
+  - 网站劫持</p>
+
+<h2 id="date-2015-10-15-17-00-14:bc8f651661e60ea7572437c49724694d">date: 2015-10-15 17:00:14</h2>
+
+<p>今天一个朋友找我排查一个安全问题，在此做下记录
+问题描述：网站直接打开正常，但是通过百度（搜索引擎）过来的就会跳转到钓鱼网站。</p>
+
+<p>猜测可能出现的问题：
+    1.dns被劫持(域名劫持)
+    2.网站被注入
+    3.xss等漏洞</p>
+
+<p>解决过程：
+先看是否能够在我自己电脑重现：
+可以重现，说明不是dns被劫持。</p>
+
+<p>查看百度跳转链接返回内容：
+{% codeblock lang:html %}
+<meta content="always" name="referrer"><script>try{if(window.opener&amp;&amp;window.opener.bds&amp;&amp;window.opener.bds.pdc&amp;&amp;window.opener.bds.pdc.sendLinkLog){window.opener.bds.pdc.sendLinkLog();}}catch(e) {};var timeout = 0;if(/bdlksmp/.test(window.location.href)){var reg = /bdlksmp=([^=&amp;]+)/,matches = window.location.href.match(reg);timeout = matches[1] ? matches[1] : 0};setTimeout(function(){window.location.replace(&ldquo;<a href="http://www.pvnews.cn/chanyeyaowen/2015-10-15/127821.html&quot;)},timeout">http://www.pvnews.cn/chanyeyaowen/2015-10-15/127821.html&quot;)},timeout</a>);</script>
+<noscript><META http-equiv="refresh" content="0;URL='http://www.pvnews.cn/chanyeyaowen/2015-10-15/127821.html'"></noscript>
+{% endcodeblock %}
+没发现异常。</p>
+
+<p>到此怀疑应该是服务器被黑了，因为这种只有服务器端js或程序做判断才能做到。
+设置Referer来源：</p>
+
+<p>{% codeblock lang:shell %}
+curl &lsquo;<a href="http://www.pvnews.cn/chanyeyaowen/2015-10-15/127821.html'">http://www.pvnews.cn/chanyeyaowen/2015-10-15/127821.html'</a> -e &lsquo;<a href="http://www.baidu.com/link?url=-AX3MaL4C0KwhQkt4Nk0PqHj4qIkrKZQn4ZZz7sL0_cdIYjRCqVYB5BemgBK2LjyDKZ9L3GpvFhnYm2ItWWGE_&amp;wd=&amp;eqid=b4698ab60000ca7200000003561f80f2'">http://www.baidu.com/link?url=-AX3MaL4C0KwhQkt4Nk0PqHj4qIkrKZQn4ZZz7sL0_cdIYjRCqVYB5BemgBK2LjyDKZ9L3GpvFhnYm2ItWWGE_&amp;wd=&amp;eqid=b4698ab60000ca7200000003561f80f2'</a>
+{% endcodeblock %}</p>
+
+<p>经过diff返回与正常网页没有区别.</p>
+
+<p>最终查看js,发现如下代码：
+{% codeblock lang:js %}
+if(window.name != &lsquo;ad_app6&rsquo;){</p>
+
+<pre><code>var r = document.referrer;
+
+r = r.toLowerCase();
+
+var aSites = new Array('google.','baidu.','soso.','so.','haosou.','yahoo.','youdao.','sogou.','gougou.');
+
+var b = false;
+
+for (i in aSites){
+
+    if (r.indexOf(aSites[i]) &gt; 0){
+
+        b = true;
+
+        break;
+
+    }
+
+}
+
+
+
+if(b)
+
+{
+
+    self.location = 'http://www.laok.cc/#老K全讯网';
+
+    window.adworkergo = 'ad_app6';
+
+}
+</code></pre>
+
+<p>}</p>
+
+<p>{% endcodeblock %}
+至此查到问题所在，服务器被黑,或ftp之类的被破</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,197 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> 测试相关－golang &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>测试相关－golang</h1>
+			  <span class="post-date">2016-01-25</span>
+			      
+
+<h2 id="测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1">测试的重要性</h2>
+
+<p>体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。<br />
+本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.</p>
+
+<p><em>测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。</em></p>
+
+<h2 id="测试类别:8e22fa101fec99f1e092801dd3c0bfd1">测试类别：</h2>
+
+<ol>
+<li><p>功能测试、单元测试</p>
+
+<ul>
+<li>&lt;覆盖率测试 code coverage&gt;</li>
+<li>随机测试</li>
+<li>样本测试</li>
+</ul></li>
+
+<li><p>基准/基线测试 base line testing / benchmark testing</p>
+
+<ul>
+<li>性能测试  performance test</li>
+</ul></li>
+
+<li><p>负载测试 load testing</p></li>
+
+<li><p>压力测试 stress testing</p></li>
+
+<li><p>稳定性测试[可靠性] scalability testing</p></li>
+
+<li><p>疲劳测试 endurance testing</p></li>
+
+<li><p>组合测试 combination testing</p></li>
+
+<li><p>远程/机房测试 remote/local testing</p></li>
+</ol>
+
+<h2 id="测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1">测试指标有哪些要关注的：</h2>
+
+<ol>
+<li>每秒查询率[QPS Queries Per Second ]</li>
+<li>响应时间[Response Time]：</li>
+<li>服务器资源[]：</li>
+<li>吞吐量[TPS Transactions Per Second]：</li>
+<li>并发用户数<br /></li>
+</ol>
+
+<hr />
+
+<ol>
+<li>性能测试（可用性测试）    
+主要是测试正常业务量下，成功率、每秒检索量、平均处理时间、服务器资源利用率。主要考察，该系统是否符合业务需求，能否达到上线要求。   </li>
+<li>压力测试    
+测试峰值情况下，长时间连续运行系统给系统性能造成的影响。</li>
+<li>负载测试
+测试不同并发数下，单机/单套系统的极限并发。</li>
+<li>容量测试    
+主要是测试数据量非常大的情况下，内存、磁盘、访问性能。一般系统刚上线，数据量较小，性能一般没有什么问题，把数据放大到百万、千万量级，再测测系统，可能之前未能暴露的问题就出来了。   </li>
+<li>疲劳测试    
+连续24小时以上测试，看有没有内存碎片和内存泄露等问题.</li>
+<li>配置测试    
+不同参数下的性能，后台程序会有很多开关，需要测试主要的开关情况下对性能的影响，或者不同的参数数量对于性能的影响。比较简单的例子就是，索引长度设置为128和1024对于系统的性能究竟有多大的影响。</li>
+</ol>
+
+<p>并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，</p>
+
+<h3 id="实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1">实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。<em>性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关</em></h3>
+
+<p><img src="/upload/web-test.jpg" alt="" /></p>
+
+<p>术语说明：
+QPS = req/sec = 请求数/秒
+【QPS计算PV和机器的方式】
+QPS统计方式 [一般使用 http_load 进行统计]
+QPS = 总请求数 / ( 进程总数 *   请求时间 )
+QPS: 单个进程每秒请求服务器的成功次数</p>
+
+<p>单台服务器每天PV计算
+公式1：每天总PV = QPS * 3600 * 6
+公式2：每天总PV = QPS * 3600 * 8</p>
+
+<p>服务器计算
+服务器数量 =   ceil( 每天总PV / 单台服务器每天总PV )</p>
+
+<p>【峰值QPS和机器计算公式】</p>
+
+<p>原理：每天80%的访问集中在20%的时间里，这20%时间叫做峰值时间
+公式：( 总PV数 * 80% ) / ( 每天秒数 * 20% ) = 峰值时间每秒请求数(QPS)
+机器：峰值时间每秒QPS / 单台机器的QPS   = 需要的机器</p>
+
+<p>问：每天300w PV 的在单台机器上，这台机器需要多少QPS？
+答：( 3000000 * 0.8 ) / (86400 * 0.2 ) = 139 (QPS)</p>
+
+<p>问：如果一台机器的QPS是58，需要几台机器来支持？
+答：139 / 58 = 3</p>
+
+<p>QPS提升带来什么？QPS提升说明单台服务器处理能力提升，如果QPS提升1倍，服务器资源减少1半，或者说服务器不变可以支撑2倍的请求量。
+如何提升QPS？
+1）减少CPU的使用时间（哪些代码会消耗CPU：循环、字符串拼接\查找\替换、编码\解码、序列化\反序列化、压缩）
+2）增加CPU的数量
+3）减少同步锁
+（如果CPU不能被压到85%以上，并且此时的QPS已经达到了峰值，则说明另有瓶颈，接下去关注内存）
+RT提升带来什么？
+响应速度提升说明单词请求的处理速度提升，用户感觉任务处理速度更快，系统反应速度更快。当然在处理能力不变的情况下，RT的提升必然会提升QPS。
+如何提升RT？
+1）减少I/O的响应时间
+2）减少I/O的调用次数
+3）减少CPU使用时间（当然在I/O占大头的应用里，这方面优化效果肯定不明显）</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,153 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<p>title: golang 守护进程 daemon 实现方式
+tags:
+  - golang
+  - daemon
+  - 守护进程</p>
+
+<h2 id="date-2015-05-07-17-51-12:0c0705ff9f709abf9a574c9ef808216c">date: 2015-05-07 17:51:12</h2>
+
+<p>技术点：</p>
+
+<ul>
+<li>执行代码增加了一个开关，用来判断是否已经是daemon形式启动了</li>
+<li>使用linux内置守护进程运行命令</li>
+</ul>
+
+<p>具体逻辑：</p>
+
+<p>程序在刚启动的时候包中init函数优先执行，执行后验证是否存在守护进程开关，如果存在并且当前进程不是守护进程模式则使用守护进程方式启动应用并退出当前进程</p>
+
+<p>需要注意的：golang的flag包的逻辑是所有参数必须都是flag方式，否则就不解析。我在做的时候是有非flag方式的，所以只能自己动手丰衣足食了</p>
+
+<p>伪代码示例：</p>
+
+<p>包：</p>
+
+<p>func init(){</p>
+
+<p>//验证是否存在守护进程开关</p>
+
+<p>if daemon_args_exist(){</p>
+
+<p>//当前进程不是守护进程模式</p>
+
+<p>if ! is_daemon_progress() {</p>
+
+<p>//守护进程方式启动应用</p>
+
+<p>star_daemon()</p>
+
+<p>//并退出当前进程</p>
+
+<p>os.Exit(0)</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>}</p>
+
+<p>应用入口main：</p>
+
+<p>import(</p>
+
+<p>//只要引入包即可，无需其他操作</p>
+
+<p>_ “xidibuy/daemon&#8221;</p>
+
+<p>)</p>
+
+<p>另外下面传送门的这个git是有bug的，当有参数不全部为flag的时候，就会失效。</p>
+
+<p>思路参考了： <a href="http://github.com/icattlecoder/godaemon">github.com/icattlecoder/godaemon</a></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,149 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<p>##
+ #   替换－最短的 从前面
+ ##  替换－最长的 从前面
+ %   替换－最短的 从后面
+ %%  替换－最长的 从后面
+例如：
+echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/usr/local/go1.5.1/bin</p>
+
+<p>echo ${PATH##/*:}
+/usr/local/go1.5.1/bin</p>
+
+<p>echo ${PATH#/*:}
+/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin:/usr/local/go1.5.1/bin</p>
+
+<p>##变量默认值设置</p>
+
+<p>username=${username:-root}
+如果username为空，则username为root
+&gt; 注${username:-root}中冒号是有必要加的，如果不加则只要设置过username就不会再次覆盖，而加冒号后则只要username为空就更新变量.</p>
+
+<p>##
+Ctrl +C     终止目前的命令
+Ctrl +D     输入结束 (EOF),例如邮件结束的时候;
+Ctrl +M     就是 Enter 啦!
+Ctrl +S     暂停屏幕的输出
+Ctrl +Q     恢复屏幕的输出
+Ctrl +U     在提示字符下,将整列命令删除
+Ctrl +Z     『暂停』目前的命令</p>
+
+<h1 id="shell中的正则:2429fbbfdb615ec24c1cf717adb9c98f">shell中的正则</h1>
+
+<ul>
+<li><p>通配符
+? 一个字符
+[] 和正则表达式一致</p>
+
+<h1 id="注释:2429fbbfdb615ec24c1cf717adb9c98f">注释，</h1>
+
+<p>\ 转义符
+| 管道命令
+; 连续指令分隔符,连续指令例如：sync; sync; shutdown -h now
+~ 用户家目录
+&amp; 后台运行
+! not的意思
+/ 目录符号
+&gt;&gt; 、 &gt; 数据重导向
+&lt;&lt;、&lt; 数据重导向
+``、$() 优先执行的命令
+() 子shell起始于结束</p></li>
+</ul>
+
+<h2 id="数据流重导向:2429fbbfdb615ec24c1cf717adb9c98f">数据流重导向</h2>
+
+<p>*. 标准输入 (stdin):代码为0,使用&lt;、&lt;&lt;;
+*. 标准输出 (stdout):代码为1,使用&gt;、&gt;&gt;;
+*. 标准错误输出(stderr):代码为2,使用2&gt;、2&gt;&gt;;
+&gt; 一个重定向的常用命令：cat &gt; catfile &lt;&lt; &ldquo;eof&rdquo;     ,当输入eof后，自动结束
+一个shell三元命令示例：<br />
+ls /tmp/vbirding &amp;&amp; echo &ldquo;exist&rdquo; || echo &ldquo;not exist&rdquo;</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

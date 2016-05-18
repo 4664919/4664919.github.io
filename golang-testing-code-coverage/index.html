@@ -1,0 +1,157 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> 覆盖率测试－测试相关－golang &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>覆盖率测试－测试相关－golang</h1>
+			  <span class="post-date">2016-01-25</span>
+			      
+
+<h3 id="相关参数:4df3722ce16d4ff7fa64d0a0ba971114">相关参数</h3>
+
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>示例</th>
+<th>注释</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-cover</td>
+<td>-cover</td>
+<td>表示开启覆盖率</td>
+</tr>
+
+<tr>
+<td>-covermode</td>
+<td>-covermode=set</td>
+<td>覆盖率统计模式：   <br>set只记录是否执行过.  <br> count统计执行次数. <br>原子方式atomic统计执行次数.</td>
+</tr>
+
+<tr>
+<td>-coverpkg</td>
+<td>-coverpkg pkg1,pkg2,pkg3</td>
+<td>统计覆盖测试其他包，多个以，号分隔</td>
+</tr>
+
+<tr>
+<td>-coverprofile</td>
+<td>-coverprofile cover.out</td>
+<td>数据写入到指定文件</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h3 id="demo:4df3722ce16d4ff7fa64d0a0ba971114">DEMO</h3>
+
+<pre><code class="shell">
+go test -cover -coverprofile cover.out ./logv3/
+ok      xidibuy/logv3   0.010s  coverage: 65.1% of statements
+</code></pre>
+cover.out 内容：
+<pre><code class="shell">
+mode: set                                                                                                                                      
+xidibuy/logv3/console.go:21.68,24.2 2 1
+xidibuy/logv3/console.go:26.51,30.26 2 1
+xidibuy/logv3/console.go:33.2,34.12 2 1
+xidibuy/logv3/console.go:30.26,32.3 1 1
+xidibuy/logv3/console.go:36.30,38.2 0 0
+xidibuy/logv3/console.go:39.28,41.2 0 0
+xidibuy/logv3/file.go:20.59,24.2 2 1
+xidibuy/logv3/file.go:26.48,30.26 2 1
+xidibuy/logv3/file.go:33.2,34.12 2 1
+xidibuy/logv3/file.go:30.26,32.3 1 0
+xidibuy/logv3/file.go:36.27,38.2 0 0
+...
+</code></pre>
+
+<p>以上输出详情并不利于人来观看，可使用go tool 查看html格式的内容
+<pre><code class="shell">
+go tool cover -html=cover.out
+</code></pre>
+<img src="/upload/golang-testing-code-coverage.png" alt="" /></p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

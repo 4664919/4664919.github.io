@@ -1,0 +1,151 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<p>title: golang使用flag中遇到的问题
+tags:
+  - golang
+  - flag</p>
+
+<h2 id="date-2015-09-06-16-59-30:b466e8f2132e47affd6bf66f8fd23a0b">date: 2015-09-06 16:59:30</h2>
+
+<h1 id="关于flag:b466e8f2132e47affd6bf66f8fd23a0b">关于flag</h1>
+
+<p>在开发golang项目中，有用到flag。在使用中遇到一些问题：</p>
+
+<ol>
+<li>多次解析flag，会覆盖之前的：</li>
+</ol>
+
+<h2 id="出现的具体问题:b466e8f2132e47affd6bf66f8fd23a0b">出现的具体问题：</h2>
+
+<blockquote>
+<p>在开发项目包中<a href="/golang-daemon.html">守护进程 daemon 实现方式 </a>、<a href="/golang-pprof.html">关于golang性能调试</a> 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.</p>
+</blockquote>
+
+<p>代码示例：
+包a:
+{% codeblock lang:golang %}
+func init() {
+    if daemon_args_exist() {
+        flag.Parse()<br />
+        &hellip;
+    }<br />
+}
+{% endcodeblock %}</p>
+
+<p>包b:
+{% codeblock lang:golang %}
+func parseProfFlags() {
+    if !flag.Parsed() {<br />
+        flag.Parse()
+    }<br />
+    &hellip;
+}</p>
+
+<p>{% endcodeblock %}</p>
+
+<h3 id="如何解决:b466e8f2132e47affd6bf66f8fd23a0b">如何解决</h3>
+
+<p>虽然加了一些简单判断，其实是没有解决实际问题。根据golang的flag包，程序需要保证只执行一次parse，但是在daemon的程序中，初始化的时候有可能直接中断程序，故也需要一些开关来判断在什么时候执行parse。 其他包则是在主函数中程序初始化完毕后，加载flag.Parse()即可解决。</p>
+
+<p>包main:
+{% codeblock lang:golang %}
+func main(){
+    &hellip;
+    //基准包初始化
+    base.Init()
+    //数据包初始化
+    data.Init()
+    &hellip;
+    //开始执行flag.Parse()
+    var f *SFlag.Flag = SFlag.GetFlag()
+    f.Parse()
+    &hellip;
+}
+{% endcodeblock %}</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

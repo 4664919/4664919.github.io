@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang Testing on simons blog</title>
+    <link>http://blog.simonsun.net/categories/golang-testing/</link>
+    <description>Recent content in Golang Testing on simons blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Jan 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://blog.simonsun.net/categories/golang-testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>测试相关－golang</title>
+      <link>http://blog.simonsun.net/golang-testing/</link>
+      <pubDate>Mon, 25 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-testing/</guid>
+      <description>
+
+&lt;h2 id=&#34;测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试的重要性&lt;/h2&gt;
+
+&lt;p&gt;体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&amp;gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。&lt;br /&gt;
+本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;测试类别:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试类别：&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;功能测试、单元测试&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;覆盖率测试 code coverage&amp;gt;&lt;/li&gt;
+&lt;li&gt;随机测试&lt;/li&gt;
+&lt;li&gt;样本测试&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;基准/基线测试 base line testing / benchmark testing&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;性能测试  performance test&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;负载测试 load testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;压力测试 stress testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;稳定性测试[可靠性] scalability testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;疲劳测试 endurance testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;组合测试 combination testing&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;远程/机房测试 remote/local testing&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;每秒查询率[QPS Queries Per Second ]&lt;/li&gt;
+&lt;li&gt;响应时间[Response Time]：&lt;/li&gt;
+&lt;li&gt;服务器资源[]：&lt;/li&gt;
+&lt;li&gt;吞吐量[TPS Transactions Per Second]：&lt;/li&gt;
+&lt;li&gt;并发用户数&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li&gt;性能测试（可用性测试）    
+主要是测试正常业务量下，成功率、每秒检索量、平均处理时间、服务器资源利用率。主要考察，该系统是否符合业务需求，能否达到上线要求。   &lt;/li&gt;
+&lt;li&gt;压力测试    
+测试峰值情况下，长时间连续运行系统给系统性能造成的影响。&lt;/li&gt;
+&lt;li&gt;负载测试
+测试不同并发数下，单机/单套系统的极限并发。&lt;/li&gt;
+&lt;li&gt;容量测试    
+主要是测试数据量非常大的情况下，内存、磁盘、访问性能。一般系统刚上线，数据量较小，性能一般没有什么问题，把数据放大到百万、千万量级，再测测系统，可能之前未能暴露的问题就出来了。   &lt;/li&gt;
+&lt;li&gt;疲劳测试    
+连续24小时以上测试，看有没有内存碎片和内存泄露等问题.&lt;/li&gt;
+&lt;li&gt;配置测试    
+不同参数下的性能，后台程序会有很多开关，需要测试主要的开关情况下对性能的影响，或者不同的参数数量对于性能的影响。比较简单的例子就是，索引长度设置为128和1024对于系统的性能究竟有多大的影响。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，&lt;/p&gt;
+
+&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/web-test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;术语说明：
+QPS = req/sec = 请求数/秒
+【QPS计算PV和机器的方式】
+QPS统计方式 [一般使用 http_load 进行统计]
+QPS = 总请求数 / ( 进程总数 *   请求时间 )
+QPS: 单个进程每秒请求服务器的成功次数&lt;/p&gt;
+
+&lt;p&gt;单台服务器每天PV计算
+公式1：每天总PV = QPS * 3600 * 6
+公式2：每天总PV = QPS * 3600 * 8&lt;/p&gt;
+
+&lt;p&gt;服务器计算
+服务器数量 =   ceil( 每天总PV / 单台服务器每天总PV )&lt;/p&gt;
+
+&lt;p&gt;【峰值QPS和机器计算公式】&lt;/p&gt;
+
+&lt;p&gt;原理：每天80%的访问集中在20%的时间里，这20%时间叫做峰值时间
+公式：( 总PV数 * 80% ) / ( 每天秒数 * 20% ) = 峰值时间每秒请求数(QPS)
+机器：峰值时间每秒QPS / 单台机器的QPS   = 需要的机器&lt;/p&gt;
+
+&lt;p&gt;问：每天300w PV 的在单台机器上，这台机器需要多少QPS？
+答：( 3000000 * 0.8 ) / (86400 * 0.2 ) = 139 (QPS)&lt;/p&gt;
+
+&lt;p&gt;问：如果一台机器的QPS是58，需要几台机器来支持？
+答：139 / 58 = 3&lt;/p&gt;
+
+&lt;p&gt;QPS提升带来什么？QPS提升说明单台服务器处理能力提升，如果QPS提升1倍，服务器资源减少1半，或者说服务器不变可以支撑2倍的请求量。
+如何提升QPS？
+1）减少CPU的使用时间（哪些代码会消耗CPU：循环、字符串拼接\查找\替换、编码\解码、序列化\反序列化、压缩）
+2）增加CPU的数量
+3）减少同步锁
+（如果CPU不能被压到85%以上，并且此时的QPS已经达到了峰值，则说明另有瓶颈，接下去关注内存）
+RT提升带来什么？
+响应速度提升说明单词请求的处理速度提升，用户感觉任务处理速度更快，系统反应速度更快。当然在处理能力不变的情况下，RT的提升必然会提升QPS。
+如何提升RT？
+1）减少I/O的响应时间
+2）减少I/O的调用次数
+3）减少CPU使用时间（当然在I/O占大头的应用里，这方面优化效果肯定不明显）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>覆盖率测试－测试相关－golang</title>
+      <link>http://blog.simonsun.net/golang-testing-code-coverage/</link>
+      <pubDate>Mon, 25 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/golang-testing-code-coverage/</guid>
+      <description>
+
+&lt;h3 id=&#34;相关参数:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;相关参数&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;示例&lt;/th&gt;
+&lt;th&gt;注释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-cover&lt;/td&gt;
+&lt;td&gt;-cover&lt;/td&gt;
+&lt;td&gt;表示开启覆盖率&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-covermode&lt;/td&gt;
+&lt;td&gt;-covermode=set&lt;/td&gt;
+&lt;td&gt;覆盖率统计模式：   &lt;br&gt;set只记录是否执行过.  &lt;br&gt; count统计执行次数. &lt;br&gt;原子方式atomic统计执行次数.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-coverpkg&lt;/td&gt;
+&lt;td&gt;-coverpkg pkg1,pkg2,pkg3&lt;/td&gt;
+&lt;td&gt;统计覆盖测试其他包，多个以，号分隔&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;-coverprofile&lt;/td&gt;
+&lt;td&gt;-coverprofile cover.out&lt;/td&gt;
+&lt;td&gt;数据写入到指定文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&#34;demo:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;DEMO&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+go test -cover -coverprofile cover.out ./logv3/
+ok      xidibuy/logv3   0.010s  coverage: 65.1% of statements
+&lt;/code&gt;&lt;/pre&gt;
+cover.out 内容：
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+mode: set                                                                                                                                      
+xidibuy/logv3/console.go:21.68,24.2 2 1
+xidibuy/logv3/console.go:26.51,30.26 2 1
+xidibuy/logv3/console.go:33.2,34.12 2 1
+xidibuy/logv3/console.go:30.26,32.3 1 1
+xidibuy/logv3/console.go:36.30,38.2 0 0
+xidibuy/logv3/console.go:39.28,41.2 0 0
+xidibuy/logv3/file.go:20.59,24.2 2 1
+xidibuy/logv3/file.go:26.48,30.26 2 1
+xidibuy/logv3/file.go:33.2,34.12 2 1
+xidibuy/logv3/file.go:30.26,32.3 1 0
+xidibuy/logv3/file.go:36.27,38.2 0 0
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上输出详情并不利于人来观看，可使用go tool 查看html格式的内容
+&lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
+go tool cover -html=cover.out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&#34;http://blog.simonsun.net/upload/golang-testing-code-coverage.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

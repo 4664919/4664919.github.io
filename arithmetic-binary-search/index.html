@@ -1,0 +1,278 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> 算法 － 二分查找(Binary Search) &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>算法 － 二分查找(Binary Search)</h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<h2 id="前言:5ec26f00f35df1515016e8c39c803553">前言：</h2>
+
+<p>算法时间复杂度按优劣排差不多集中在：</p>
+
+<p>O(1), O(log n), O(n), O(n log n), O(n2), O(nk), O(2n)</p>
+
+<p>到目前位置，似乎我学到的算法中，时间复杂度是O(log n),好像就数二分查找法，其他的诸如排序算法都是 O(n log n)或者O(n2)。但是也正是因为有二分的 O(log n), 才让很多 O(n2)缩减到只要O(n log n)。</p>
+
+<p>作用：</p>
+
+<p>二分查找法主要是解决在“一堆数中找出指定的数”这类问题。</p>
+
+<p>条件：</p>
+
+<p>想要应用二分查找法，这“一堆数”必须有一下特征：</p>
+
+<p>存储在数组中</p>
+
+<p>有序排列</p>
+
+<p>搜索值必须在数组中</p>
+
+<p>原理：</p>
+
+<p>二分查找算法就是不断将数组进行对半分割，每次拿中间元素和goal进行比较。</p>
+
+<p>代码示例：</p>
+
+<p>php:</p>
+
+<pre><code class="php">
+&lt;?php
+$array = array(1,3,4,6,6,6,7,8,9,10);
+
+$search = 9;
+
+$res = binarySearch($array,$search);
+
+var_dump($res);
+
+/**
+
+* 二分查找(binary search)
+
+* 返回搜索值在数组中的位置，如搜索不到返回false
+
+*/
+
+function binarySearch($array ,$search) {
+
+$high = count($array) - 1;
+
+$low = 0 ;
+
+//搜索值不存在于数组中则搜索不到
+
+if($search &lt; $array[$low] || $search &gt; $array[$high]){
+
+return false ;
+
+}
+
+while ($low &lt;= $high){
+
+//取中间位置
+
+$mid = floor($low + ($high - $low)/2) ;
+
+if($array[$mid]&gt;$search){//如果搜索值小于当前中间位置，则设置最大边界为当前中间位置－1
+
+$high = $mid - 1 ;
+
+}else if($array[$mid]&lt;$search){//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+$low  = $mid + 1 ;
+
+}else{
+
+//不大于也不小于就是等于了
+
+return $mid ;
+
+}
+
+}
+
+return false ;
+
+}
+?&lt;
+</code></pre>
+
+<p>golang:</p>
+
+<pre><code class="go">
+package main
+
+import (
+
+"errors"
+
+"fmt"
+
+)
+
+func main() {
+
+var array []int = []int{1, 3, 4, 6, 6, 6, 7, 8, 9, 10}
+
+var search int = 9
+
+var pos int
+
+var err error
+
+pos, err = binarySearch(array, search)
+
+fmt.Println(pos)
+
+fmt.Println(err)
+
+}
+
+func binarySearch(array []int, search int) (pos int, err error) {
+
+var low int = 0
+
+var high int = len(array) - 1
+
+var middle int
+
+for low &lt;= high {
+
+//取中间位置
+
+middle = low + (high-low)/2
+
+//如果搜索值小于当前中间位置，则设置最大边界为当前中间位置－1
+
+if array[middle] &gt; search {
+
+high = middle - 1
+
+continue
+
+}
+
+//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+if array[middle] &lt; search {
+
+high = middle - 1
+
+continue
+
+}
+
+//如果搜索值大于当前中间位置，则设置最小边界为当前边界＋1
+
+if array[middle] &lt; search {
+
+low = middle + 1
+
+continue
+
+}
+
+//不大于也不小于就是等于了
+
+if array[middle] == search {
+
+return middle, nil
+
+}
+
+}
+
+return -1, errors.New("not find")
+
+}
+</code></pre>
+
+<h2 id="缺陷:5ec26f00f35df1515016e8c39c803553">缺陷：</h2>
+
+<p>二分查找法的O(log n)让它成为十分高效的算法。不过它的缺陷却也是那么明显的。就在它的限定之上：</p>
+
+<p>必须有序，我们很难保证我们的数组都是有序的。当然可以在构建数组的时候进行排序，可是又落到了第二个瓶颈上：它必须是数组。</p>
+
+<p>数组读取效率是O(1)，可是它的插入和删除某个元素的效率却是O(n)。因而导致构建有序数组变成低效的事情。</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

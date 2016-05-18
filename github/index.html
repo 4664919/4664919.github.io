@@ -1,0 +1,147 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+       
+       
+       
+          });
+</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
+      
+        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
+      
+        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
+      
+        <li><a href="/welcome/"> 你好，Hugo </a></li>
+      
+        <li><a href="/s/"> 你好，Hugo2 </a></li>
+      
+        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
+      
+        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
+      
+        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      
+
+<p>搜索高级技巧：
+搜索星级排行
+stars:&gt;1000
+例如：<a href="https://github.com/search?l=Go&amp;q=stars%3A%3E1000&amp;ref=searchresults&amp;type=Repositories&amp;utf8=%E2%9C%93">https://github.com/search?l=Go&amp;q=stars%3A%3E1000&amp;ref=searchresults&amp;type=Repositories&amp;utf8=%E2%9C%93</a></p>
+
+<p>搜索中国用户
+location:China
+<a href="https://github.com/search?q=location%3AChina&amp;ref=searchresults&amp;type=Users&amp;utf8=%E2%9C%93">https://github.com/search?q=location%3AChina&amp;ref=searchresults&amp;type=Users&amp;utf8=%E2%9C%93</a></p>
+
+<h1 id="使用技巧:93ed8abeb42c248f3c551d1cb44159d4">使用技巧</h1>
+
+<p>#基础命令
+git init 创建新的仓库
+git clone 把仓库克隆到本地</p>
+
+<p>git add 添加文件到本地仓库
+git status 查看当前状态
+git diff 对比
+git commit 提交到本地仓库
+git reset HEAD 猜测为 revert
+git rm 删除
+git mv 挪动
+git log 查看提交历史</p>
+
+<h1 id="分支:93ed8abeb42c248f3c551d1cb44159d4">分支</h1>
+
+<p>git branch (branchname) 创建分支
+git checkout (branchname) 切换分支
+git merge  合并分支</p>
+
+<p>git branch 列出分支
+git branch -d (branchname)  删除分支</p>
+
+<h1 id="tag:93ed8abeb42c248f3c551d1cb44159d4">tag</h1>
+
+<p>git tag -a v1.0</p>
+
+<p>#远程仓库
+git remote 查看远程仓库
+git fetch 从远程仓库下载新分支与数据：
+git pull  从远端仓库提取数据并尝试合并到当前分支</p>
+
+<p>#diff
+    尚未缓存的改动：git diff
+    查看已缓存的改动： git diff &ndash;cached
+    查看已缓存的与未缓存的所有改动：git diff HEAD
+    显示摘要而非整个 diff：git diff &ndash;stat
+#log
+    我们可以用 &ndash;oneline 选项来查看历史记录的简洁的版本。
+    我们还可以用 &ndash;graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：
+    你也可以用 &lsquo;&ndash;reverse&rsquo;参数来逆向显示所有日志。
+    如果只想查找指定用户的提交日志可以使用命令：git log &ndash;author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：
+    如果你要指定日期，可以执行几个选项：&ndash;since 和 &ndash;before，但是你也可以用 &ndash;until 和 &ndash;after。</p>
+
+<h1 id="tab:93ed8abeb42c248f3c551d1cb44159d4">tab</h1>
+
+<pre><code>  -a 选项意为&quot;创建一个带注解的标签&quot;。 不用 -a 选项也可以执行的，但它不会记录这标签是啥时候打的，谁打的，也不会让你添加个标签的注解。 我推荐一直创建带注解的标签。
+</code></pre>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>
