@@ -27,14 +27,18 @@
   <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
   <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
   
-  <script>hljs.initHighlightingOnLoad();</script>
   <script type="text/javascript">
   $(document).ready(function() {
-       
-       
-       
+          
+          
+          
+          $(".language-go").each(function(){
+              var _this = $(this);
+              _this.addClass("go").removeClass("language-go");
+              });
           });
 </script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body class="theme-base-08">
@@ -50,22 +54,6 @@
 
     <ul class="sidebar-nav">
       <li><a href="/">Home</a> </li>
-      
-        <li><a href="/golang-beego-use/"> BeeGo初探 </a></li>
-      
-        <li><a href="/golang-code-source/"> Golang 源码初探 </a></li>
-      
-        <li><a href="/logv3/"> golang日志系统架构设计 </a></li>
-      
-        <li><a href="/welcome/"> 你好，Hugo </a></li>
-      
-        <li><a href="/s/"> 你好，Hugo2 </a></li>
-      
-        <li><a href="/golang-testing/"> 测试相关－golang </a></li>
-      
-        <li><a href="/arithmetic-binary-search/"> 算法 － 二分查找(Binary Search) </a></li>
-      
-        <li><a href="/golang-testing-code-coverage/"> 覆盖率测试－测试相关－golang </a></li>
       
     </ul>
 
