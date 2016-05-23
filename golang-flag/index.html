@@ -84,9 +84,9 @@ tags:
   - golang
   - flag</p>
 
-<h2 id="date-2015-09-06-16-59-30:b466e8f2132e47affd6bf66f8fd23a0b">date: 2015-09-06 16:59:30</h2>
+<h2 id="date-2015-09-06-16-59-30">date: 2015-09-06 16:59:30</h2>
 
-<h1 id="关于flag:b466e8f2132e47affd6bf66f8fd23a0b">关于flag</h1>
+<h1 id="关于flag">关于flag</h1>
 
 <p>在开发golang项目中，有用到flag。在使用中遇到一些问题：</p>
 
@@ -94,7 +94,7 @@ tags:
 <li>多次解析flag，会覆盖之前的：</li>
 </ol>
 
-<h2 id="出现的具体问题:b466e8f2132e47affd6bf66f8fd23a0b">出现的具体问题：</h2>
+<h2 id="出现的具体问题">出现的具体问题：</h2>
 
 <blockquote>
 <p>在开发项目包中<a href="/golang-daemon.html">守护进程 daemon 实现方式 </a>、<a href="/golang-pprof.html">关于golang性能调试</a> 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.</p>
@@ -122,7 +122,7 @@ func parseProfFlags() {
 
 <p>{% endcodeblock %}</p>
 
-<h3 id="如何解决:b466e8f2132e47affd6bf66f8fd23a0b">如何解决</h3>
+<h3 id="如何解决">如何解决</h3>
 
 <p>虽然加了一些简单判断，其实是没有解决实际问题。根据golang的flag包，程序需要保证只执行一次parse，但是在daemon的程序中，初始化的时候有可能直接中断程序，故也需要一些开关来判断在什么时候执行parse。 其他包则是在主函数中程序初始化完毕后，加载flag.Parse()即可解决。</p>
 

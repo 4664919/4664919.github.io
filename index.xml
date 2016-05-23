@@ -17,14 +17,14 @@
       <guid>http://blog.simonsun.net/golang-testing/</guid>
       <description>
 
-&lt;h2 id=&#34;测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试的重要性&lt;/h2&gt;
+&lt;h2 id=&#34;测试的重要性&#34;&gt;测试的重要性&lt;/h2&gt;
 
 &lt;p&gt;体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&amp;gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。&lt;br /&gt;
 本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。&lt;/em&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;测试类别:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试类别：&lt;/h2&gt;
+&lt;h2 id=&#34;测试类别&#34;&gt;测试类别：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;功能测试、单元测试&lt;/p&gt;
@@ -32,7 +32,8 @@
 &lt;ul&gt;
 &lt;li&gt;&amp;lt;覆盖率测试 code coverage&amp;gt;&lt;/li&gt;
 &lt;li&gt;随机测试&lt;/li&gt;
-&lt;li&gt;样本测试&lt;/li&gt;
+&lt;li&gt;样本测试
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;基准/基线测试 base line testing / benchmark testing&lt;/p&gt;
@@ -54,7 +55,7 @@
 &lt;li&gt;&lt;p&gt;远程/机房测试 remote/local testing&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&#34;测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
+&lt;h2 id=&#34;测试指标有哪些要关注的&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;每秒查询率[QPS Queries Per Second ]&lt;/li&gt;
@@ -83,7 +84,7 @@
 
 &lt;p&gt;并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，&lt;/p&gt;
 
-&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/web-test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -136,7 +137,7 @@ RT提升带来什么？
       <guid>http://blog.simonsun.net/golang-testing-code-coverage/</guid>
       <description>
 
-&lt;h3 id=&#34;相关参数:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;相关参数&lt;/h3&gt;
+&lt;h3 id=&#34;相关参数&#34;&gt;相关参数&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -176,7 +177,7 @@ RT提升带来什么？
 
 &lt;hr&gt;
 
-&lt;h3 id=&#34;demo:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;DEMO&lt;/h3&gt;
+&lt;h3 id=&#34;demo&#34;&gt;DEMO&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
 go test -cover -coverprofile cover.out ./logv3/
@@ -261,8 +262,13 @@ go tool cover -html=cover.out
 
 &lt;p&gt;目前(略读)读到：&lt;/p&gt;
 
-&lt;p&gt;算法完全版－257
+&lt;p&gt;算法完全版－349
 aha算法 读完&lt;/p&gt;
+
+&lt;p&gt;TODO List:&lt;/p&gt;
+
+&lt;p&gt;深度搜索算法
+广度搜索算法&lt;/p&gt;
 </description>
     </item>
     
@@ -308,9 +314,9 @@ tags:
   - 测试
   - 算法&lt;/p&gt;
 
-&lt;h2 id=&#34;date-2015-05-07-17-52-10:0fc52dc52cd09d55edbc1c2b05363e2a&#34;&gt;date: 2015-05-07 17:52:10&lt;/h2&gt;
+&lt;h2 id=&#34;date-2015-05-07-17-52-10&#34;&gt;date: 2015-05-07 17:52:10&lt;/h2&gt;
 
-&lt;h3 id=&#34;新增-2015-09-06-17-32-28:0fc52dc52cd09d55edbc1c2b05363e2a&#34;&gt;新增 - 2015-09-06 17:32:28&lt;/h3&gt;
+&lt;h3 id=&#34;新增-2015-09-06-17-32-28&#34;&gt;新增 - 2015-09-06 17:32:28&lt;/h3&gt;
 
 &lt;p&gt;&lt;em&gt;由于测试代码未保留（测试的时候直接存/tmp了）导致没有源代码，故也就没有后续了。。。&lt;/em&gt;&lt;/p&gt;
 
@@ -376,9 +382,9 @@ total time: 2&lt;/p&gt;
 第三部分:page 308－347
 第四部分:page 347-423&lt;/p&gt;
 
-&lt;h1 id=&#34;词根:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;词根&lt;/h1&gt;
+&lt;h1 id=&#34;词根&#34;&gt;词根&lt;/h1&gt;
 
-&lt;h2 id=&#34;掌握词根-分析单词:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;掌握词根，分析单词&lt;/h2&gt;
+&lt;h2 id=&#34;掌握词根-分析单词&#34;&gt;掌握词根，分析单词&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;ag
@@ -1514,7 +1520,7 @@ viv = live 活&lt;/li&gt;
 survival
 vivisect&lt;/p&gt;
 
-&lt;h2 id=&#34;多认词根-多识单词:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;多认词根，多识单词&lt;/h2&gt;
+&lt;h2 id=&#34;多认词根-多识单词&#34;&gt;多认词根，多识单词&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;aer[0] 空气，空中，航空&lt;/li&gt;
@@ -1549,11 +1555,11 @@ page:120
 page:138
 page:172&lt;/p&gt;
 
-&lt;h1 id=&#34;单词的附件-词缀:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;单词的附件－词缀&lt;/h1&gt;
+&lt;h1 id=&#34;单词的附件-词缀&#34;&gt;单词的附件－词缀&lt;/h1&gt;
 
-&lt;h2 id=&#34;前缀:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;前缀&lt;/h2&gt;
+&lt;h2 id=&#34;前缀&#34;&gt;前缀&lt;/h2&gt;
 
-&lt;h2 id=&#34;后缀:4a79cc836e36abf0d14b07014fbd72c3&#34;&gt;后缀&lt;/h2&gt;
+&lt;h2 id=&#34;后缀&#34;&gt;后缀&lt;/h2&gt;
 </description>
     </item>
     
@@ -1565,7 +1571,7 @@ page:172&lt;/p&gt;
       <guid>http://blog.simonsun.net/english/</guid>
       <description>
 
-&lt;h1 id=&#34;字母发音的重要性:b6b595a68cd480ac7859f3dfec888e20&#34;&gt;字母发音的重要性&lt;/h1&gt;
+&lt;h1 id=&#34;字母发音的重要性&#34;&gt;字母发音的重要性&lt;/h1&gt;
 
 &lt;p&gt;说到这，先简单介绍下【自然拼读法】吧。
 具体的官方介绍可以自己搜百度。
@@ -1609,7 +1615,7 @@ stars:&amp;gt;1000
 location:China
 &lt;a href=&#34;https://github.com/search?q=location%3AChina&amp;amp;ref=searchresults&amp;amp;type=Users&amp;amp;utf8=%E2%9C%93&#34;&gt;https://github.com/search?q=location%3AChina&amp;amp;ref=searchresults&amp;amp;type=Users&amp;amp;utf8=%E2%9C%93&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;使用技巧:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;使用技巧&lt;/h1&gt;
+&lt;h1 id=&#34;使用技巧&#34;&gt;使用技巧&lt;/h1&gt;
 
 &lt;p&gt;#基础命令
 git init 创建新的仓库
@@ -1624,7 +1630,7 @@ git rm 删除
 git mv 挪动
 git log 查看提交历史&lt;/p&gt;
 
-&lt;h1 id=&#34;分支:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;分支&lt;/h1&gt;
+&lt;h1 id=&#34;分支&#34;&gt;分支&lt;/h1&gt;
 
 &lt;p&gt;git branch (branchname) 创建分支
 git checkout (branchname) 切换分支
@@ -1633,7 +1639,7 @@ git merge  合并分支&lt;/p&gt;
 &lt;p&gt;git branch 列出分支
 git branch -d (branchname)  删除分支&lt;/p&gt;
 
-&lt;h1 id=&#34;tag:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;tag&lt;/h1&gt;
+&lt;h1 id=&#34;tag&#34;&gt;tag&lt;/h1&gt;
 
 &lt;p&gt;git tag -a v1.0&lt;/p&gt;
 
@@ -1654,7 +1660,7 @@ git pull  从远端仓库提取数据并尝试合并到当前分支&lt;/p&gt;
     如果只想查找指定用户的提交日志可以使用命令：git log &amp;ndash;author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：
     如果你要指定日期，可以执行几个选项：&amp;ndash;since 和 &amp;ndash;before，但是你也可以用 &amp;ndash;until 和 &amp;ndash;after。&lt;/p&gt;
 
-&lt;h1 id=&#34;tab:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;tab&lt;/h1&gt;
+&lt;h1 id=&#34;tab&#34;&gt;tab&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code&gt;  -a 选项意为&amp;quot;创建一个带注解的标签&amp;quot;。 不用 -a 选项也可以执行的，但它不会记录这标签是啥时候打的，谁打的，也不会让你添加个标签的注解。 我推荐一直创建带注解的标签。
 &lt;/code&gt;&lt;/pre&gt;
@@ -1675,7 +1681,7 @@ tags:
   - daemon
   - 守护进程&lt;/p&gt;
 
-&lt;h2 id=&#34;date-2015-05-07-17-51-12:0c0705ff9f709abf9a574c9ef808216c&#34;&gt;date: 2015-05-07 17:51:12&lt;/h2&gt;
+&lt;h2 id=&#34;date-2015-05-07-17-51-12&#34;&gt;date: 2015-05-07 17:51:12&lt;/h2&gt;
 
 &lt;p&gt;技术点：&lt;/p&gt;
 
@@ -1749,9 +1755,9 @@ tags:
   - golang
   - flag&lt;/p&gt;
 
-&lt;h2 id=&#34;date-2015-09-06-16-59-30:b466e8f2132e47affd6bf66f8fd23a0b&#34;&gt;date: 2015-09-06 16:59:30&lt;/h2&gt;
+&lt;h2 id=&#34;date-2015-09-06-16-59-30&#34;&gt;date: 2015-09-06 16:59:30&lt;/h2&gt;
 
-&lt;h1 id=&#34;关于flag:b466e8f2132e47affd6bf66f8fd23a0b&#34;&gt;关于flag&lt;/h1&gt;
+&lt;h1 id=&#34;关于flag&#34;&gt;关于flag&lt;/h1&gt;
 
 &lt;p&gt;在开发golang项目中，有用到flag。在使用中遇到一些问题：&lt;/p&gt;
 
@@ -1759,7 +1765,7 @@ tags:
 &lt;li&gt;多次解析flag，会覆盖之前的：&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&#34;出现的具体问题:b466e8f2132e47affd6bf66f8fd23a0b&#34;&gt;出现的具体问题：&lt;/h2&gt;
+&lt;h2 id=&#34;出现的具体问题&#34;&gt;出现的具体问题：&lt;/h2&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;在开发项目包中&lt;a href=&#34;http://blog.simonsun.net/golang-daemon.html&#34;&gt;守护进程 daemon 实现方式 &lt;/a&gt;、&lt;a href=&#34;http://blog.simonsun.net/golang-pprof.html&#34;&gt;关于golang性能调试&lt;/a&gt; 两个包会有冲突：如果有多个flag的parse函数，只首次运行的parse管用.&lt;/p&gt;
@@ -1787,7 +1793,7 @@ func parseProfFlags() {
 
 &lt;p&gt;{% endcodeblock %}&lt;/p&gt;
 
-&lt;h3 id=&#34;如何解决:b466e8f2132e47affd6bf66f8fd23a0b&#34;&gt;如何解决&lt;/h3&gt;
+&lt;h3 id=&#34;如何解决&#34;&gt;如何解决&lt;/h3&gt;
 
 &lt;p&gt;虽然加了一些简单判断，其实是没有解决实际问题。根据golang的flag包，程序需要保证只执行一次parse，但是在daemon的程序中，初始化的时候有可能直接中断程序，故也需要一些开关来判断在什么时候执行parse。 其他包则是在主函数中程序初始化完毕后，加载flag.Parse()即可解决。&lt;/p&gt;
 

@@ -17,14 +17,14 @@
       <guid>http://blog.simonsun.net/golang-testing/</guid>
       <description>
 
-&lt;h2 id=&#34;测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试的重要性&lt;/h2&gt;
+&lt;h2 id=&#34;测试的重要性&#34;&gt;测试的重要性&lt;/h2&gt;
 
 &lt;p&gt;体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&amp;gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。&lt;br /&gt;
 本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。&lt;/em&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;测试类别:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试类别：&lt;/h2&gt;
+&lt;h2 id=&#34;测试类别&#34;&gt;测试类别：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;功能测试、单元测试&lt;/p&gt;
@@ -32,7 +32,8 @@
 &lt;ul&gt;
 &lt;li&gt;&amp;lt;覆盖率测试 code coverage&amp;gt;&lt;/li&gt;
 &lt;li&gt;随机测试&lt;/li&gt;
-&lt;li&gt;样本测试&lt;/li&gt;
+&lt;li&gt;样本测试
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;基准/基线测试 base line testing / benchmark testing&lt;/p&gt;
@@ -54,7 +55,7 @@
 &lt;li&gt;&lt;p&gt;远程/机房测试 remote/local testing&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&#34;测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
+&lt;h2 id=&#34;测试指标有哪些要关注的&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;每秒查询率[QPS Queries Per Second ]&lt;/li&gt;
@@ -83,7 +84,7 @@
 
 &lt;p&gt;并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，&lt;/p&gt;
 
-&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/web-test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -136,7 +137,7 @@ RT提升带来什么？
       <guid>http://blog.simonsun.net/golang-testing-code-coverage/</guid>
       <description>
 
-&lt;h3 id=&#34;相关参数:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;相关参数&lt;/h3&gt;
+&lt;h3 id=&#34;相关参数&#34;&gt;相关参数&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -176,7 +177,7 @@ RT提升带来什么？
 
 &lt;hr&gt;
 
-&lt;h3 id=&#34;demo:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;DEMO&lt;/h3&gt;
+&lt;h3 id=&#34;demo&#34;&gt;DEMO&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
 go test -cover -coverprofile cover.out ./logv3/

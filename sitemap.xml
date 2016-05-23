@@ -4,7 +4,6 @@
   <url>
     <loc>http://blog.simonsun.net/</loc>
     <lastmod>2016-01-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -145,6 +144,14 @@
   
   <url>
     <loc>http://blog.simonsun.net/mk/</loc>
+  </url>
+  
+  <url>
+    <loc>http://blog.simonsun.net/new/open-source-desc/</loc>
+  </url>
+  
+  <url>
+    <loc>http://blog.simonsun.net/npw/</loc>
   </url>
   
   <url>

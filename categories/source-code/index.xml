@@ -16,15 +16,15 @@
       <guid>http://blog.simonsun.net/golang-code-source/</guid>
       <description>
 
-&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
+&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
 
-&lt;h2 id=&#34;初始化:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;初始化&lt;/h2&gt;
+&lt;h2 id=&#34;初始化&#34;&gt;初始化&lt;/h2&gt;
 
 &lt;p&gt;初始化cpu： 源代码/runtime/os1_[所属环境].go ,通过getproccount函数调用不同底层的命令sysctl[mac]、sched_getaffinity[linux]&lt;br /&gt;
 设置进程数：源代码/runtime/proc1.go,通过procresize函数设置P的数量，1.3的时候比较暴力，似乎是cpu的倍数，特意查看了1.3源代码，是c写的。也都是调用系统底层命令。&lt;br /&gt;
 调用runtime.main:栈大小设置：64位1GB，32位250MB。&lt;/p&gt;
 
-&lt;h2 id=&#34;内存管理:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;内存管理：&lt;/h2&gt;
+&lt;h2 id=&#34;内存管理&#34;&gt;内存管理：&lt;/h2&gt;
 
 &lt;p&gt;malloc相关文件，
 runtime/debug.FreeOSMemory 函数主动释放内存

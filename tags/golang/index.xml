@@ -17,14 +17,14 @@
       <guid>http://blog.simonsun.net/golang-testing/</guid>
       <description>
 
-&lt;h2 id=&#34;测试的重要性:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试的重要性&lt;/h2&gt;
+&lt;h2 id=&#34;测试的重要性&#34;&gt;测试的重要性&lt;/h2&gt;
 
 &lt;p&gt;体现一个技术人员的牛逼之处离不开bug率。而bug率的多寡也离不开测试。除了bug率,时间成本(可重复性)。也是重点之之一。码农陷入在改bug-&amp;gt;产生bug的怪圈中。而卓越的程序员一直在从卓越到更卓越的循环中。一个悲伤的故事：差距就这样拉开了。&lt;br /&gt;
 本文所说测试不是手工测试，手工测试的成本高的可怕。手工测试不是测试,那是在做实验。只要有人的因素牵涉其中，那结果就必然可疑。测试并不能杜绝bug。但测试能保证程序的行为是符合预期的.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;测试可以分为很多种、叫法名字也不同。测试本身也是一个很宽泛的词。&lt;/em&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;测试类别:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试类别：&lt;/h2&gt;
+&lt;h2 id=&#34;测试类别&#34;&gt;测试类别：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;功能测试、单元测试&lt;/p&gt;
@@ -32,7 +32,8 @@
 &lt;ul&gt;
 &lt;li&gt;&amp;lt;覆盖率测试 code coverage&amp;gt;&lt;/li&gt;
 &lt;li&gt;随机测试&lt;/li&gt;
-&lt;li&gt;样本测试&lt;/li&gt;
+&lt;li&gt;样本测试
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;基准/基线测试 base line testing / benchmark testing&lt;/p&gt;
@@ -54,7 +55,7 @@
 &lt;li&gt;&lt;p&gt;远程/机房测试 remote/local testing&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&#34;测试指标有哪些要关注的:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
+&lt;h2 id=&#34;测试指标有哪些要关注的&#34;&gt;测试指标有哪些要关注的：&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;每秒查询率[QPS Queries Per Second ]&lt;/li&gt;
@@ -83,7 +84,7 @@
 
 &lt;p&gt;并发用户数和QPS两个概念没有直接关系，但是如果要说QPS时，一定需要指明是多少并发用户数下的QPS，&lt;/p&gt;
 
-&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关:8e22fa101fec99f1e092801dd3c0bfd1&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;实际上性能是一个很很宽泛的词-系统出了问题大多归结为性能有问题-比如访问速度慢-占用资源过多-时不时宕机等等-但是这属于不同性能问题的范畴-而且测试方法也不尽相同-性能测试监控指标主要分为-资源指标和系统指标-资源指标与硬件资源消耗直接相关-而系统指标则与用户场景及需求直接相关&#34;&gt;实际上性能是一个很很宽泛的词，系统出了问题大多归结为性能有问题，比如访问速度慢，占用资源过多，时不时宕机等等，但是这属于不同性能问题的范畴，而且测试方法也不尽相同。&lt;em&gt;性能测试监控指标主要分为：资源指标和系统指标，资源指标与硬件资源消耗直接相关，而系统指标则与用户场景及需求直接相关&lt;/em&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/web-test.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
@@ -136,7 +137,7 @@ RT提升带来什么？
       <guid>http://blog.simonsun.net/golang-testing-code-coverage/</guid>
       <description>
 
-&lt;h3 id=&#34;相关参数:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;相关参数&lt;/h3&gt;
+&lt;h3 id=&#34;相关参数&#34;&gt;相关参数&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -176,7 +177,7 @@ RT提升带来什么？
 
 &lt;hr&gt;
 
-&lt;h3 id=&#34;demo:4df3722ce16d4ff7fa64d0a0ba971114&#34;&gt;DEMO&lt;/h3&gt;
+&lt;h3 id=&#34;demo&#34;&gt;DEMO&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;shell&#34;&gt;
 go test -cover -coverprofile cover.out ./logv3/
@@ -235,7 +236,7 @@ go tool cover -html=cover.out
       <guid>http://blog.simonsun.net/golang-beego-use/</guid>
       <description>
 
-&lt;h2 id=&#34;写在最前:85665b9a786fe827d0056a80c9c2d556&#34;&gt;写在最前&lt;/h2&gt;
+&lt;h2 id=&#34;写在最前&#34;&gt;写在最前&lt;/h2&gt;
 
 &lt;p&gt;框架是对底层的封装，在使用golang之前一直都是做PHP开发，而PHP的框架很多像CI、YII、PhalconPHP等，当然自己也尝试着写了一下框架。在开始使用golang的时候为了了解底层也就没有使用框架。&lt;code&gt;本次了解beego是想学习下beego的代码&lt;/code&gt;，顺便完善下自己的框架。&lt;br /&gt;
 作者花了一天时间去看文档以及代码，免不了有些细节不够了解。&lt;/p&gt;
@@ -243,7 +244,7 @@ go tool cover -html=cover.out
 &lt;p&gt;&lt;br&gt;
 在最开始学习golang时就是看astaxie的书，也是那个时候知道的BeeGo。BeeGo是重量级的Go框架,github上标星快6k了。其优点自不必说。以下是我查看文档、代码中遇到的问题和疑惑。&lt;/p&gt;
 
-&lt;h2 id=&#34;文档相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;文档相关&lt;/h2&gt;
+&lt;h2 id=&#34;文档相关&#34;&gt;文档相关&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;beego集成了脚手架,通过new、run等实现快速开发,这个很赞&lt;br /&gt;&lt;/li&gt;
@@ -255,7 +256,7 @@ go tool cover -html=cover.out
 &lt;li&gt;模块－数据库操作，关于orm只用过gorm，单看API感觉比gorm好用,比gorm更多实用的封装，少了一些不好理解的东西&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;代码相关:85665b9a786fe827d0056a80c9c2d556&#34;&gt;代码相关&lt;/h2&gt;
+&lt;h2 id=&#34;代码相关&#34;&gt;代码相关&lt;/h2&gt;
 
 &lt;p&gt;config包，包里包含ini、json、xml、yaml等格式。关于配置这块我自己写过也用过其他人的，对比下来ini说实话将近400行代码有点啰嗦,推荐这个屌炸天的&lt;code&gt;github.com/go-ini/ini&lt;/code&gt; 反射到struct超好用
 cache包是对cache的封装，底层都是用第三方库，自不必多说,其中文件、内存缓存是直接写的，想写简单缓存的可以参考
@@ -274,15 +275,15 @@ logs包为多输出，这个值得借鉴&lt;/p&gt;
       <guid>http://blog.simonsun.net/golang-code-source/</guid>
       <description>
 
-&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
+&lt;h1 id=&#34;主要是跟着雨痕的文章一起研究的&#34;&gt;主要是跟着雨痕的文章一起研究的&lt;/h1&gt;
 
-&lt;h2 id=&#34;初始化:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;初始化&lt;/h2&gt;
+&lt;h2 id=&#34;初始化&#34;&gt;初始化&lt;/h2&gt;
 
 &lt;p&gt;初始化cpu： 源代码/runtime/os1_[所属环境].go ,通过getproccount函数调用不同底层的命令sysctl[mac]、sched_getaffinity[linux]&lt;br /&gt;
 设置进程数：源代码/runtime/proc1.go,通过procresize函数设置P的数量，1.3的时候比较暴力，似乎是cpu的倍数，特意查看了1.3源代码，是c写的。也都是调用系统底层命令。&lt;br /&gt;
 调用runtime.main:栈大小设置：64位1GB，32位250MB。&lt;/p&gt;
 
-&lt;h2 id=&#34;内存管理:267e5e576bf58833f83b1baa2ec0c5a3&#34;&gt;内存管理：&lt;/h2&gt;
+&lt;h2 id=&#34;内存管理&#34;&gt;内存管理：&lt;/h2&gt;
 
 &lt;p&gt;malloc相关文件，
 runtime/debug.FreeOSMemory 函数主动释放内存
@@ -300,12 +301,12 @@ runtime/debug.FreeOSMemory 函数主动释放内存
 
 &lt;p&gt;#[名言] 不断的重构，模块会越来越壮大，功能会越来越多，代码会复杂，这时候开始重构。&lt;/p&gt;
 
-&lt;h3 id=&#34;为啥鞋日志包:7fd877a2562cbb7976f27484b36083fa&#34;&gt;为啥鞋日志包&lt;/h3&gt;
+&lt;h3 id=&#34;为啥鞋日志包&#34;&gt;为啥鞋日志包&lt;/h3&gt;
 
 &lt;p&gt;日志是debug不可或缺的模块，当出现问题时可以追踪问题、查看异常原因。作为后端服务，需要能够回溯问题并告知使用服务的同学问题出在哪里。
 目前还未发现比较健壮、并且适用本地服务的开源日志包，所以只能自己动手。&lt;/p&gt;
 
-&lt;h3 id=&#34;日志包的使用臆测:7fd877a2562cbb7976f27484b36083fa&#34;&gt;日志包的使用臆测&lt;/h3&gt;
+&lt;h3 id=&#34;日志包的使用臆测&#34;&gt;日志包的使用臆测&lt;/h3&gt;
 
 &lt;p&gt;可以不初始化 - 单元测试、无需日志的时候，可以直接使用。
 可以支持并发日志。－日志按块写入，根据pkid查看整个生命周期
@@ -314,7 +315,7 @@ runtime/debug.FreeOSMemory 函数主动释放内存
 
 &lt;p&gt;我们会收到使用服务的同学的各种问题&lt;/p&gt;
 
-&lt;h3 id=&#34;v3版本日志功能:7fd877a2562cbb7976f27484b36083fa&#34;&gt;v3版本日志功能：&lt;/h3&gt;
+&lt;h3 id=&#34;v3版本日志功能&#34;&gt;v3版本日志功能：&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;支持并发写入
@@ -338,7 +339,7 @@ runtime/debug.FreeOSMemory 函数主动释放内存
 &lt;li&gt;打印文件名，行号&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;日志与内置log-beego-log的区别:7fd877a2562cbb7976f27484b36083fa&#34;&gt;日志与内置log、BeeGo log的区别&lt;/h3&gt;
+&lt;h3 id=&#34;日志与内置log-beego-log的区别&#34;&gt;日志与内置log、BeeGo log的区别&lt;/h3&gt;
 
 &lt;p&gt;使用为了简单，快速开发，以及更好的兼容本地服务。
 log可以多文件存储，但是多种输出方式得封装

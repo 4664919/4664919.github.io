@@ -77,7 +77,9 @@
 			<div class="post">
 			 	<h1></h1>
 			  <span class="post-date">0001-01-01</span>
-			      <p>ategories = [&ldquo;Development&rdquo;, &ldquo;GoLang&rdquo;]
+			      
+
+<p>ategories = [&ldquo;Development&rdquo;, &ldquo;GoLang&rdquo;]
 Description = &ldquo;&rdquo;
 Tags = [&ldquo;Development&rdquo;, &ldquo;golang&rdquo;]
 date = &ldquo;2015-09-23T16:30:37+08:00&rdquo;
@@ -86,7 +88,36 @@ title = &ldquo;你好，Hugo&rdquo;</p>
 
 <p>+++</p>
 
-<p>这是使用Hugo创建的站点中的第一篇文章。</p>
+<h1 id="hugo源码略读">hugo源码略读:</h1>
+
+<h1 id="main-go">main.go</h1>
+
+<p>取运行时临时编译目录:<br />
+<a href="https://github.com/kardianos/osext">https://github.com/kardianos/osext</a></p>
+
+<pre><code class="language-go"></code></pre>
+
+<p>运行command:
+<pre><code class="go">
+&ldquo;github.com/spf13/hugo/commands&rdquo;
+commands.Execute()
+</code></pre></p>
+
+<p>入口函数未知在：hugo/commands/hugo.go
+commands 又使用了 cobra 包，位置在hugo/cobra,在国内的项目中一般叫base之类的基类包
+cobra 定义了commands 的struct 命令类似 git
+cobra 还定义了template相关的设置</p>
+
+<p>import 了jww这个包，并有如下判断<br />
+这个只是日志输出组件，大概看了下实现了基本功能，但是比如日志分割之类的逻辑都没有。所以没有使用的必要.</p>
+
+<pre><code class="go">
+jww "github.com/spf13/jwalterweatherman"
+
+if jww.LogCountForLevelsGreaterThanorEqualTo(jww.LevelError) > 0 {
+    os.Exit(-1)
+}
+</code></pre>
 
 			</div>
 

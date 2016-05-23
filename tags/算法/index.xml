@@ -16,7 +16,7 @@
       <guid>http://blog.simonsun.net/arithmetic-binary-search/</guid>
       <description>
 
-&lt;h2 id=&#34;前言:5ec26f00f35df1515016e8c39c803553&#34;&gt;前言：&lt;/h2&gt;
+&lt;h2 id=&#34;前言&#34;&gt;前言：&lt;/h2&gt;
 
 &lt;p&gt;算法时间复杂度按优劣排差不多集中在：&lt;/p&gt;
 
@@ -198,7 +198,7 @@ return -1, errors.New(&#34;not find&#34;)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;缺陷:5ec26f00f35df1515016e8c39c803553&#34;&gt;缺陷：&lt;/h2&gt;
+&lt;h2 id=&#34;缺陷&#34;&gt;缺陷：&lt;/h2&gt;
 
 &lt;p&gt;二分查找法的O(log n)让它成为十分高效的算法。不过它的缺陷却也是那么明显的。就在它的限定之上：&lt;/p&gt;
 
