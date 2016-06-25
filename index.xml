@@ -6,8 +6,78 @@
     <description>Recent content on simons blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 May 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jun 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://blog.simonsun.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ASE加密算法</title>
+      <link>http://blog.simonsun.net/ase/</link>
+      <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.simonsun.net/ase/</guid>
+      <description>
+
+&lt;h2 id=&#34;aes的由来&#34;&gt;AES的由来&lt;/h2&gt;
+
+&lt;p&gt;AES (Advanced Encryption Standard) 算法为比利时密码学家Joan Daemen和Vincent Rijmen所设计。用来替代原先的DES.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/ase.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;aes的逻辑&#34;&gt;AES的逻辑&lt;/h2&gt;
+
+&lt;p&gt;AES加密过程是在一个4×4的字节矩阵(称为体state)上运作,其初值就是一个明文区块加密时，各轮AES加密循环（除最后一轮外）均包含4个步骤.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;轮密钥加 AddRoundKey     矩阵中的每一个字节都与该次回合密钥（round key）做XOR运算；每个子密钥由密钥生成方案产生。&lt;/li&gt;
+&lt;li&gt;字节替代 SubBytes       通过一个非线性的替换函数，用查找表的方式把每个字节替换成对应的字节。&lt;/li&gt;
+&lt;li&gt;行移位   ShiftRows     将矩阵中的每个横列进行循环式移位。&lt;/li&gt;
+&lt;li&gt;列混淆   MixColumns        为了充分混合矩阵中各个直行的操作。这个步骤使用线性转换来混合每内联的四个字节。最后一个加密循环中省略MixColumns步骤，而以另一个AddRoundKey替换。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AddRoundKey步骤，回合密钥将会与原矩阵合并。在每次的加密循环中，都会由主密钥产生一把回合密钥，这把密钥大小会跟原矩阵一样，以与原矩阵中每个对应的字节作异或加法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/aes-addroundkey.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在SubBytes步骤中，矩阵中的各字节通过一个8位的S-box进行转换。这个步骤提供了加密法非线性的变换能力。S-box与GF（&lt;code&gt;$2^8$&lt;/code&gt;）上的乘法反元素有关，已知具有良好的非线性特性。为了避免简单代数性质的攻击，S-box结合了乘法反元素及一个可逆的仿射变换矩阵建构而成。此外在建构S-box时，刻意避开了固定点与反固定点，即以S-box替换字节的结果会相当于错排的结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/aes-mixcolumns.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ShiftRows描述矩阵的行操作。在此步骤中，每一行都向左循环位移某个偏移量。在AES中（区块大小128位），第一行维持不变，第二行里的每个字节都向左循环移动一格。同理，第三行及第四行向左循环位移的偏移量就分别是2和3。128位和192比特的区块在此步骤的循环位移的模式相同。经过ShiftRows之后，矩阵中每一竖列，都是由输入矩阵中的每个不同列中的元素组成。Rijndael算法的版本中，偏移量和AES有少许不同；对于长度256比特的区块，第一行仍然维持不变，第二行、第三行、第四行的偏移量分别是1字节、3字节、4位组。除此之外，ShiftRows操作步骤在Rijndael和AES中完全相同。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/aes-shiftrows.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在MixColumns步骤，每一列的四个字节通过线性变换互相结合。每一列的四个元素分别当作
+&lt;code&gt;$ 1,x,x^2,x^3 $&lt;/code&gt;
+的系数，合并即为GF（&lt;code&gt;$2^8$&lt;/code&gt;）中的一个多项式，接着将此多项式和一个固定的多项式
+&lt;code&gt;$ c(x) = 3x^3 + x^2 + x + 2 $&lt;/code&gt; 在modulo &lt;code&gt;$  x^4 + 1 $&lt;/code&gt;
+下相乘。此步骤亦可视为Rijndael有限域之下的矩阵乘法。MixColumns函数接受4个字节的输入，输出4个字节，每一个输入的字节都会对输出的四个字节造成影响。因此ShiftRows和MixColumns两步骤为这个密码系统提供了扩散性。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/aes-subbytes.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;以下flash为展示aes流程&#34;&gt;以下flash为展示AES流程&lt;/h3&gt;
+
+&lt;p&gt;&lt;embed width=&#34;680&#34; height=&#34;400&#34; name=&#34;plugin&#34; id=&#34;plugin&#34; src=&#34;http://coolshell.cn//wp-content/uploads/2010/10/rijndael_ingles2004.swf&#34; type=&#34;application/x-shockwave-flash&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;题外语&#34;&gt;题外语&lt;/h3&gt;
+
+&lt;p&gt;严格地说，AES和Rijndael加密法并不完全一样（虽然在实际应用中两者可以互换），因为Rijndael加密法可以支持更大范围的区块和密钥长度：AES的区块长度固定为128 比特，密钥长度则可以是128，192或256比特；而Rijndael使用的密钥和区块长度可以是32位的整数倍，以128位为下限，256比特为上限。加密过程中使用的密钥是由Rijndael密钥生成方案产生。&lt;/p&gt;
+
+&lt;p&gt;&lt;div_ele class=&#34;ref&#34;&gt;
+参考：
+&lt;a href=&#34;https://zh.wikipedia.org/wiki/AES&#34;&gt;维基百科&lt;/a&gt;
+&lt;a href=&#34;http://coolshell.cn/articles/3161.html&#34;&gt;酷壳&lt;/a&gt;
+&lt;a href=&#34;http://www.cnblogs.com/luop/p/4334160.html&#34;&gt;ReadingLover&lt;/a&gt;
+&lt;/div_ele&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>一个结尾的开始</title>
@@ -25,12 +95,6 @@
 
 &lt;p&gt;衔尾蛇这个符号很有象征意义，它表达很多寓意，其中一条是表示即是一个结尾又是一个开始(始终)。所谓循环。其实与太极有异曲同工之处。&lt;/p&gt;
 
-&lt;p&gt;何为结尾？
-   为何开始？
-   本篇博客也一样&lt;/p&gt;
-
-&lt;h1 id=&#34;新的起点&#34;&gt;新的起点&lt;/h1&gt;
-
 &lt;h1 id=&#34;第二幕-一个结尾的开始&#34;&gt;第二幕：一个结尾的开始&lt;/h1&gt;
 
 &lt;p&gt;从大概08年开始就弄博客，当时用的好像是叫博客大巴的一个网站。很多年后在看到那个网站有一种无以言明的感觉。&lt;br /&gt;
@@ -40,8 +104,6 @@
 &lt;p&gt;之后弄过很多博客，09年开始学习PHP，弄了一个叫“酷豆”的网站，很是激动了一段时间。激动过后网站需要续费之类的，随之也关闭了。再后来在博客园开通了blog当时主要是把工作中的一些“记录”记录下来。之后又用了wordpress做博客,和目前的gitpage，都是弄了一段时间后就不了了之了。&lt;/p&gt;
 
 &lt;p&gt;其实很久之前就知道blog的重要性,但是一直没有持续的去写作。&lt;/p&gt;
-
-&lt;p&gt;原因我已经理清楚了，主要是 用力过猛、坑爹的大脑。到时候单独开页面讨论。&lt;/p&gt;
 
 &lt;h1 id=&#34;第三幕-终点与起点&#34;&gt;第三幕：终点与起点&lt;/h1&gt;
 
@@ -55,13 +117,42 @@
 
 &lt;h3 id=&#34;所以不要让大脑给的所谓借口去掩饰自己的懒惰&#34;&gt;所以不要让大脑给的所谓借口去掩饰自己的懒惰。&lt;/h3&gt;
 
+&lt;h1 id=&#34;多一段废话-为啥要写blog&#34;&gt;多一段废话，为啥要写blog&lt;/h1&gt;
+
+&lt;p&gt;古代交流很困难，因为信息传递代价太大。我们现在所处于一个信息爆炸的时代。信息传递的代价廉价到几乎可以忽略不及的程度。
+   但是正由于传递的廉价导致绝大多数的信息都是垃圾信息.&lt;/p&gt;
+
+&lt;h3 id=&#34;写blog能让自己更深入的了解问题&#34;&gt;写blog能让自己更深入的了解问题。&lt;/h3&gt;
+
+&lt;p&gt;写相当于输出，当我们把一个问题不仅仅是在脑子里解决，并且输出的话对问题会有更深入的了解。
+   而且既然都放到网上了，怎么好意思不弄点干货来分享。从而收获更多。&lt;/p&gt;
+
+&lt;h3 id=&#34;写blog能与未来的我进行交流&#34;&gt;写blog能与未来的我进行交流。&lt;/h3&gt;
+
+&lt;p&gt;介个想想就有冲动,过去的我已经逝去了，并且人的记忆是非常不靠谱的，我们认为曾经的我仅仅是我们现在所臆想的我。
+   关于人的记忆可以单开一章来论述，简单来说我们的大脑不像硬盘而像内存，记忆会被一直刷新。&lt;/p&gt;
+
+&lt;h3 id=&#34;是一个与人交流的口子&#34;&gt;是一个与人交流的口子&lt;/h3&gt;
+
+&lt;p&gt;多一个交流的渠道。&lt;/p&gt;
+
+&lt;h3 id=&#34;称为被动交流&#34;&gt;称为被动交流&lt;/h3&gt;
+
+&lt;p&gt;我们平时口语交流很耗费精力，因为传递一次信息就消失了，下次在交流还得重复说一遍。
+   但是一篇文章写好后，只要有人浏览就可以进行交流。&lt;/p&gt;
+
 &lt;!-- 
+# 新的起点
 之前的 迭代垃圾
 
 七年，新生
+原因我已经理清楚了，主要是 用力过猛、坑爹的大脑。到时候单独开页面讨论。
 
    我在自欺欺人什么？
 
+   何为结尾？
+   为何开始？
+   本篇博客也一样
    ---我已经自欺欺人很久了，
 --&gt;
 </description>

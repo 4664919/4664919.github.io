@@ -1,0 +1,146 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>  &middot; simons blog </title>
+
+  
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/poole.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/syntax.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/hyde.css">
+  <link rel="stylesheet" href="http://blog.simonsun.net/css/fonts.googleapis.com.css">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="simons blog" />
+  
+  <script src="http://blog.simonsun.net/js/jquery.min.js"></script>
+  <script src="http://blog.simonsun.net/js/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://blog.simonsun.net/js/highlight-github.min.css">
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+          
+          
+          
+          $(".language-go").each(function(){
+              var _this = $(this);
+              _this.addClass("go").removeClass("language-go");
+              });
+          });
+</script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+	<body class="theme-base-08">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://blog.simonsun.net/"><h1>simons blog</h1></a>
+      <p class="lead">
+       这里是Simon Sun的个人博客 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+    </ul>
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1></h1>
+			  <span class="post-date">0001-01-01</span>
+			      <p>一个最迷你的gokit服务
+go kit 主要是使用rpc，所以接口的所有函数都是远程可调用的。</p>
+
+<p>每一个函数，我们定一个 请求和响应 的结构体。分别捕获所有的输入和输出</p>
+
+<p>go kit 通过endpoint提供了大量的实用抽象工具</p>
+
+<p>一个endpoint相当于一个单例的RPC，也就是说，endpoint在我们的接口服务是一个单例函数。我们写一个简单的适配器到endpoint，来转化每个服务的函数 。</p>
+
+<p>现在我们需要对外服务，所以必须可访问。你的服务结构可能已经是可选择的了</p>
+
+<p>也许你使用Thrift或自定义JSON，go kit开箱即用很多传输协议。</p>
+
+<p>对于这个小示例服务，我们使用http json,</p>
+
+<p>－－－－－－－－－－－－－－－示例1完成了－－－－－－－－－－－－－－－－－－－－－－－－</p>
+
+<p>没有服务不考虑日志和仪表盘
+传输日至</p>
+
+<p>任何组件都需要把日志记录当成依赖，同一个数据库连接，所以我们构建我们的日志在main中，并且传递给需要它的组件。我们从来不使用全局范围的日志服务。
+我们能够通过日志服务直接进入我们的stringService实现，但是有一个更好的方法。我们使用中间件，像装饰模式。一个中间件是一个函数，接受endpoint并且返回endpoint</p>
+
+<p>应用日志
+但是，如果我们想在我们的应用写日志，像参数？他</p>
+
+<p>但是,如果我们想要登录我们的应用程序域,事实证明，我们可以在服务中定一个中间件。并且得到组合的结果，因为我们的StringService是一个定义的接口，我们仅仅需要区创建一个新的类型来包装现有的StringService并且执行额外的日志记录</p>
+
+<p>使用endpoint中间件担忧，像电路中断和速度限制。使用中间件业务领域关注，像日志记录和仪表盘</p>
+
+<p>仪表盘：
+在go kit，仪表盘表意味着使用指标包记录统计的运行时行为。
+计算工作进程的数量，它们完成后记录请求的持续时间 。
+并且在仪表盘也包括跟踪数量和动态操作</p>
+
+<p>－－－－－－－－－－－－－－－－－－－－</p>
+
+<p>&ldquo;关键词 未定义&rdquo; ＝》 其他</p>
+
+<p>自定义变量
+<a href="http://xa.xidibuy.com/?module=API&amp;method=CustomVariables.getCustomVariables&amp;idSite=3&amp;period=day&amp;date=today&amp;format=JSON&amp;token_auth=75f296cd30ddeebb4319bc4669affe3b">http://xa.xidibuy.com/?module=API&amp;method=CustomVariables.getCustomVariables&amp;idSite=3&amp;period=day&amp;date=today&amp;format=JSON&amp;token_auth=75f296cd30ddeebb4319bc4669affe3b</a></p>
+
+<p>自定义变量详情
+<a href="http://xa.xidibuy.com/?module=API&amp;method=CustomVariables.getCustomVariablesValuesFromNameId&amp;idSite=3&amp;period=day&amp;date=today&amp;format=JSON&amp;token_auth=75f296cd30ddeebb4319bc4669affe3b&amp;idSubtable=1">http://xa.xidibuy.com/?module=API&amp;method=CustomVariables.getCustomVariablesValuesFromNameId&amp;idSite=3&amp;period=day&amp;date=today&amp;format=JSON&amp;token_auth=75f296cd30ddeebb4319bc4669affe3b&amp;idSubtable=1</a></p>
+
+<p>事件接口：
+<a href="http://developer.piwik.org/api-reference/reporting-api#Events">http://developer.piwik.org/api-reference/reporting-api#Events</a></p>
+
+<p>————————————</p>
+
+<p>golang pprof</p>
+
+<p>cpu
+heap,allocation
+traces</p>
+
+<p>flame graphs</p>
+
+<p>github/uber/go-torch
+—————————————
+go-wrk</p>
+
+<p>go tool pprof —second 5 <a href="http://xxx">http://xxx</a></p>
+
+<p>go-torch</p>
+
+<p>开发时间10天＋冗余3天
+2天其他项目开发时间</p>
+
+<p>联调 － 飘飘 4天
+moa － 联调  X天</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>
