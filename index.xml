@@ -10,18 +10,18 @@
     <atom:link href="http://blog.simonsun.net/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>ASE加密算法</title>
-      <link>http://blog.simonsun.net/ase/</link>
+      <title>AES加密算法</title>
+      <link>http://blog.simonsun.net/aes/</link>
       <pubDate>Sat, 25 Jun 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.simonsun.net/ase/</guid>
+      <guid>http://blog.simonsun.net/aes/</guid>
       <description>
 
 &lt;h2 id=&#34;aes的由来&#34;&gt;AES的由来&lt;/h2&gt;
 
 &lt;p&gt;AES (Advanced Encryption Standard) 算法为比利时密码学家Joan Daemen和Vincent Rijmen所设计。用来替代原先的DES.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/ase.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.simonsun.net/upload/aes.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;aes的逻辑&#34;&gt;AES的逻辑&lt;/h2&gt;
 
